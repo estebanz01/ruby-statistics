@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Statistics::Distribution::Beta do
-  describe '#beta_function' do
+  describe '.beta_function' do
     it 'returns 1 for the special case x = y = 1' do
-      expect(described_class.new(1,1).beta_function).to eq 1
+      expect(described_class.beta_function(1, 1)).to eq 1
     end
 
     it 'Calculates the expected values for the beta function' do
@@ -11,7 +11,7 @@ describe Statistics::Distribution::Beta do
       result = [1, 0.1667, 0.0333, 0.0071, 0.0016]
 
       (1..5).each_with_index do |number, index|
-        expectation = described_class.new(number, number).beta_function.round(4)
+        expectation = described_class.beta_function(number, number).round(4)
         expect(expectation).to eq result[index]
       end
     end
