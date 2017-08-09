@@ -8,15 +8,32 @@ module Statistics
         self.beta = bet
       end
 
-      def probability_density(value)
-        return 0 if value > 1 || value < 0 # Outside support
-        return 1 if alpha == 1 && beta == 1
+      def beta_function(x = nil, y = nil)
+        x = alpha if x.nil?
+        y = beta if y.nil?
 
-        if(alpha < 512 && beta < 512)
-          ((value**(alpha - 1)) * (1 - value)**(beta - 1))/beta_function(alpha, beta)
-        else
-          Math.exp((alpha - 1) * Math.log(value) + (beta - 1) * Math.log(1 - x) - beta_function)
-        end
+        return 1 if x == 1 && y == 1
+
+        (Math.gamma(x) * Math.gamma(y))/Math.gamma(x + y)
+      end
+
+      def density_function(value)
+        return 0 if value < 0 || value > 1 # Density function defined in the [0,1] interval
+
+        num = (value**(alpha - 1)) * ((1 - value)**(beta - 1))
+        den = beta_function(alpha, beta)
+
+        num/den
+      end
+
+      def mode
+        return unless alpha > 1 && beta > 1
+
+        (alpha - 1)/(alpha + beta - 2)
+      end
+
+      def mean
+        alpha / (alpha + beta)
       end
     end
   end
