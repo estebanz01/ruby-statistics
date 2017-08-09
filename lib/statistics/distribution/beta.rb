@@ -4,8 +4,8 @@ module Statistics
       attr_accessor :alpha, :beta
 
       def initialize(alp, bet)
-        self.alpha = alp
-        self.beta = bet
+        self.alpha = alp.to_f
+        self.beta = bet.to_f
       end
 
       def beta_function(x = nil, y = nil)

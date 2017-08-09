@@ -36,9 +36,9 @@ describe Statistics::Distribution::Beta do
 
   describe '#mode' do
     it 'calculates the expected mode for the beta distribution' do
-      alpha =rand(2..10)
+      alpha = rand(2..10)
       beta = rand(2..10)
-      mode = (alpha - 1)/(alpha + beta - 2)
+      mode = (alpha.to_f - 1)/(alpha.to_f + beta.to_f - 2)
 
       expect(described_class.new(alpha, beta).mode).to eq (mode)
     end
@@ -56,7 +56,7 @@ describe Statistics::Distribution::Beta do
       alpha = rand(-5..5)
       beta = rand(-5..5)
 
-      expect(described_class.new(alpha, beta).mean).to eq alpha/(alpha + beta)
+      expect(described_class.new(alpha, beta).mean).to eq alpha.to_f/(alpha.to_f + beta.to_f)
     end
   end
 end
