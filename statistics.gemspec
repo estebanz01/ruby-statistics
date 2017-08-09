@@ -9,9 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["esteban zapata"]
   spec.email         = ["estebanz01@outlook.com"]
 
-  spec.summary       = %q{A ruby gem for some statistics. A bad port of jStat js library.}
-  spec.description   = %q{Something here}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A ruby gem for som specific statistics. A bad port of jStat js library.}
+  spec.description   = %q{This gem is intended to do the same job as jStat js library. The main
+                          idea is to provide ruby with statistical capabilities without the need
+                          of a statistical programming language like R or Octave.}
+  spec.homepage      = "https://github.com/estebanz01/ruby-statistics"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
