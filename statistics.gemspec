@@ -36,5 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "grb"
+  spec.add_development_dependency 'byebug'
   spec.add_dependency 'descriptive_statistics'
 end
