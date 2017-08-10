@@ -9,6 +9,7 @@ module Statistics
       end
 
       def density_function(value)
+        return if shape <= 0 || scale <= 0
         return 0 if value < 0
 
         left = shape/scale
