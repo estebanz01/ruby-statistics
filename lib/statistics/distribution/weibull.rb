@@ -8,6 +8,12 @@ module Statistics
         self.scale = lamb.to_f
       end
 
+      def cumulative_function(random_value)
+        return 0 if random_value < 0
+
+        1 - Math.exp(-((random_value/scale) ** shape))
+      end
+
       def density_function(value)
         return if shape <= 0 || scale <= 0
         return 0 if value < 0
