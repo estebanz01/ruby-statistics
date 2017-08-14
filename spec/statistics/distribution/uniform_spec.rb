@@ -18,6 +18,26 @@ describe Statistics::Distribution::Uniform do
     end
   end
 
+  describe '#cumulative_function' do
+    it 'calculates the probability of the specified value for the uniform distribution' do
+      results = [0.0, 0.0, 0.5, 1.0, 1.0]
+
+      (1..5).each_with_index do |number, index|
+        uniform = described_class.new(2, 4) # left: 2, right: 4
+
+        expect(uniform.cumulative_function(number)).to eq results[index]
+      end
+    end
+
+    it 'returns zero when the specified value is less than the left value' do
+      expect(described_class.new(3,4).cumulative_function(2)).to eq 0
+    end
+
+    it 'returns one when the specified value is greater than the right value' do
+      expect(described_class.new(4, 5).cumulative_function(6)).to eq 1
+    end
+  end
+
   describe '#mean' do
     it 'returns the expected mean for the uniform distribution' do
       left,right = rand(1..10), rand(1..10)

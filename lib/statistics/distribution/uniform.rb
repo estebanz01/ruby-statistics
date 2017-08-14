@@ -16,6 +16,16 @@ module Statistics
         end
       end
 
+      def cumulative_function(value)
+        if value < left
+          0
+        elsif value >= left && value <= right
+          (value - left)/(right - left)
+        else
+          1
+        end
+      end
+
       def mean
         (1/2.0) * ( left + right )
       end
