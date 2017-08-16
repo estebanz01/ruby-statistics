@@ -68,7 +68,7 @@ describe Statistics::Distribution::Weibull do
       left = Math.gamma(1 + (2/shape))
       right = Math.gamma(1 + (1/shape)) ** 2
 
-      expected = scale * (left - right)
+      expected = (scale ** 2) * (left - right)
 
       expect(described_class.new(shape, scale).variance).to eq expected
     end

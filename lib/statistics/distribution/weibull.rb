@@ -39,7 +39,7 @@ module Statistics
         left = Math.gamma(1 + (2/shape))
         right = Math.gamma(1 + (1/shape)) ** 2
 
-        scale * (left - right)
+        (scale ** 2) * (left - right)
       end
     end
   end
