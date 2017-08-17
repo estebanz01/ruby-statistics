@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe Statistics::Distribution::TStudent do
+  describe '#cumulative_function' do
+    it 'returns the expected values for the T-Student distribution' do
+      results = [0.7886751, 0.9082483, 0.9522670, 0.9714045, 0.9811252]
+      t_student = described_class.new(2) # degrees of freedom: 2
+
+      (1..5).each_with_index do |number, index|
+        expect(t_student.cumulative_function(number).round(7)).to eq results[index]
+      end
+    end
+  end
+
   describe '#density_function' do
     it 'is not defined for degrees of freedom less or equal to zero' do
       expect(described_class.new(rand(-5..0)).density_function(rand(10))).to be_nil
