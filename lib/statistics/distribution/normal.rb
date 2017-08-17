@@ -10,6 +10,10 @@ module Statistics
         self.variance = std.to_f**2
       end
 
+      def cumulative_function(value)
+        (1/2.0) * (1.0 + Math.erf((value - mean)/(standard_deviation * Math.sqrt(2.0))))
+      end
+
       def density_function(value)
         return 0 if standard_deviation <= 0
 
