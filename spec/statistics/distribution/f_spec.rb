@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe Statistics::Distribution::F do
+  describe '#cumulative_function' do
+    it 'returns the expected probabilities for the F distribution' do
+      results = [0.5210509, 0.7436128, 0.8418970, 0.8930887, 0.9229813]
+      f_distribution = described_class.new(3, 4) # d1: 3, d2: 4
+
+      (1..5).each_with_index do |number, index|
+        expect(f_distribution.cumulative_function(number).round(7)).to eq results[index]
+      end
+    end
+  end
+
   describe '#density_function' do
     it 'returns the expected values for the F distribution' do
       d1, d2 = 1, 2

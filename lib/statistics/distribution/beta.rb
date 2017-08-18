@@ -30,7 +30,7 @@ module Statistics
         # To avoid overflow problems, the implementation applies the logarithm properties
         # to calculate in a faster and safer way the values.
         lbet_ab = (Math.lgamma(alp)[0] + Math.lgamma(bet)[0] - Math.lgamma(alp + bet)[0]).freeze
-        front = (Math.exp(Math.log(x) * alp + Math.log(1.0 - x) * bet - lbet_ab) / alp).freeze
+        front = (Math.exp(Math.log(x) * alp + Math.log(1.0 - x) * bet - lbet_ab) / alp.to_f).freeze
 
         # This is the non-log version of the left part of the formula (before the continuous fraction)
         # down_left = alp * self.beta_function(alp, bet)
