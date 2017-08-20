@@ -8,6 +8,13 @@ module Statistics
         self.d2 = j
       end
 
+      # Formula extracted from http://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm#CDF
+      def cumulative_function(value)
+        k = d2/(d2 + d1 * value.to_f)
+
+        1 - Distribution::Beta.incomplete_beta_function(k, d2/2.0, d1/2.0)
+      end
+
       def density_function(value)
         return if d1 < 0 || d2 < 0 # F-pdf is well defined for the [0, +infinity) interval.
 

@@ -21,10 +21,26 @@ describe Statistics::Distribution::Weibull do
     end
   end
 
+  describe '#cumulative_function' do
+    it 'returns the expected probability for the weibull distribution using the specified value' do
+      results = [0.1051607, 0.3588196, 0.6321206, 0.8309867, 0.9378235]
+
+      (1..5).each_with_index do |number, index|
+        weibull = described_class.new(2, 3) # shape: 2, scale: 3
+
+        expect(weibull.cumulative_function(number).round(7)).to eq results[index]
+      end
+    end
+
+    it 'returns zero for specified vaules less or equal than zero' do
+      expect(described_class.new(2, 3).cumulative_function(rand(-5..0))).to eq 0
+    end
+  end
+
   describe '#mean' do
     it 'returns the expected mean for the weibull distribution' do
-      shape = rand(10).to_f
-      scale = rand(10).to_f
+      shape = rand(1..10).to_f
+      scale = rand(1..10).to_f
 
       expected = scale * Math.gamma(1 + (1/shape))
       expect(described_class.new(shape, scale).mean).to eq expected
@@ -38,7 +54,7 @@ describe Statistics::Distribution::Weibull do
 
     it 'returns the expected mode for the weibull distribution' do
       shape = rand(2..10).to_f
-      scale = rand(10).to_f
+      scale = rand(1..10).to_f
 
       expected = scale * (((shape - 1)/shape) ** (1/shape))
 
@@ -48,11 +64,11 @@ describe Statistics::Distribution::Weibull do
 
   describe '#variance' do
     it 'returns the expected variance for the weibull distribution' do
-      scale, shape = rand(10).to_f, rand(10).to_f
+      scale, shape = rand(1..10).to_f, rand(1..10).to_f
       left = Math.gamma(1 + (2/shape))
       right = Math.gamma(1 + (1/shape)) ** 2
 
-      expected = scale * (left - right)
+      expected = (scale ** 2) * (left - right)
 
       expect(described_class.new(shape, scale).variance).to eq expected
     end

@@ -9,6 +9,20 @@ module Statistics
         @mode = 0
       end
 
+      ### Extracted from https://codeplea.com/incomplete-beta-function-c
+      ### This function is shared under zlib license and the author is Lewis Van Winkle
+      def cumulative_function(value)
+        upper = (value + Math.sqrt(value * value + degrees_of_freedom))
+        lower = (2.0 * Math.sqrt(value * value + degrees_of_freedom))
+
+        x = upper/lower
+
+        alpha = degrees_of_freedom/2.0
+        beta = degrees_of_freedom/2.0
+
+        Distribution::Beta.incomplete_beta_function(x, alpha, beta)
+      end
+
       def density_function(value)
         return if degrees_of_freedom <= 0
 
