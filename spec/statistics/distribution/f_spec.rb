@@ -25,7 +25,7 @@ describe Statistics::Distribution::F do
 
     it 'uses the defined beta function for the Beta distribution' do
       x, y = 1, 2
-      expect(Statistics::Distribution::Beta).to receive(:beta_function)
+      expect(Math).to receive(:beta_function)
         .with(x/2.0, y/2.0).and_call_original
 
       described_class.new(x, y).density_function(rand(1..10))

@@ -12,7 +12,7 @@ module Statistics
       def cumulative_function(value)
         k = d2/(d2 + d1 * value.to_f)
 
-        1 - Distribution::Beta.incomplete_beta_function(k, d2/2.0, d1/2.0)
+        1 - Math.incomplete_beta_function(k, d2/2.0, d1/2.0)
       end
 
       def density_function(value)
@@ -22,7 +22,7 @@ module Statistics
         upper = ((d1 * val) ** d1) * (d2**d2)
         lower = (d1 * val + d2) ** (d1 + d2)
         up = Math.sqrt(upper/lower.to_f)
-        down = val * Beta.beta_function(d1/2.0, d2/2.0)
+        down = val * Math.beta_function(d1/2.0, d2/2.0)
 
         up/down.to_f
       end

@@ -20,7 +20,7 @@ module Statistics
         alpha = degrees_of_freedom/2.0
         beta = degrees_of_freedom/2.0
 
-        Distribution::Beta.incomplete_beta_function(x, alpha, beta)
+        Math.incomplete_beta_function(x, alpha, beta)
       end
 
       def density_function(value)
