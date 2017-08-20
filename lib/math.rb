@@ -1,4 +1,21 @@
 module Math
+  def self.factorial(n)
+    return if n < 0
+
+    n = n.to_i # Only integers.
+
+    return 1 if n == 0 || n == 1
+    Math.gamma(n + 1) # Math.gamma(x) == (n - 1)! for integer values
+  end
+
+  def self.combination(n, r)
+    self.factorial(n)/(self.factorial(r) * self.factorial(n - r)).to_f # n!/(r! * [n - r]!)
+  end
+
+  def self.permutation(n, k)
+    self.factorial(n)/self.factorial(n - k).to_f
+  end
+
   # Function adapted from the python implementation that exists in https://en.wikipedia.org/wiki/Simpson%27s_rule#Sample_implementation
   # Finite integral in the interval [a, b] split up in n-intervals
   def self.simpson_rule(a, b, n, &block)

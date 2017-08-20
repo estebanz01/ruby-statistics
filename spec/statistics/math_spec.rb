@@ -1,6 +1,44 @@
 require 'spec_helper'
 
 describe Math do
+  describe '.factorial' do
+    it 'is not defined for numbers less than zero' do
+      expect(described_class.factorial(rand(-100...0))).to be_nil
+    end
+
+    it 'returns one for zero or one' do
+      expect(described_class.factorial(0)).to eq 1
+      expect(described_class.factorial(1)).to eq 1
+    end
+
+    it 'calculates the correct factorial for the specified number' do
+      expect(described_class.factorial(2)).to eq 2
+      expect(described_class.factorial(3)).to eq 6
+      expect(described_class.factorial(4)).to eq 24
+      expect(described_class.factorial(5)).to eq 120
+    end
+
+    it 'truncates the decimal numbers and calculates the factorial for the real part' do
+      expect(described_class.factorial(5.4535459823483432434)).to eq 120
+    end
+  end
+
+  describe '.permutation' do
+    it 'calculates the possible permutations of k objects from a set of n elements' do
+      expect(described_class.permutation(15,4)).to eq 32760
+      expect(described_class.permutation(16, 3)).to eq 3360 # 16 balls, choose 3.
+      expect(described_class.permutation(10, 2)).to eq 90 # 10 people to select 1th and 2nd place.
+    end
+  end
+
+  describe '.combination' do
+    it 'calculates the possible combinations of k object from a set of n elements' do
+      expect(described_class.combination(16, 3)).to eq 560 # Order 16 balls in 3 ways.
+      expect(described_class.combination(5, 3)).to eq 10 # How to choose 3 people out of 5.
+      expect(described_class.combination(12, 5)).to eq 792 # How to choose 5 games out of 12.
+    end
+  end
+
   describe '.simpson_rule' do
     it 'approximates a solution in the [a,b] interval for the integral of the specified function' do
       lower = rand(10)
