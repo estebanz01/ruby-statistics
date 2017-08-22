@@ -1,3 +1,5 @@
+require 'descriptive_statistics'
+
 Dir['./lib/statistics/**/*.rb'].each {|file| require file }
 require_relative './math'
 
