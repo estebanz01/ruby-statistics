@@ -55,8 +55,8 @@ describe Math do
       res_a = ((upper ** 3)/3.0) - ((lower ** 3)/3.0) # Integral of x^2
       res_b = -Math.cos(upper) + Math.cos(lower) # Integral of sin(x)
 
-      expect(function_a.round).to eq res_a.round
-      expect(function_b.round).to eq res_b.round
+      expect(function_a.floor).to eq res_a.floor
+      expect(function_b.floor).to eq res_b.floor
     end
 
     it 'is not defined when the iterations are not even numbers' do
