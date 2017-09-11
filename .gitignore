@@ -60,3 +60,6 @@ build-iPhoneSimulator/
 
 # rspec failure tracking
 .rspec_status
+
+# byebug
+.byebug_history
