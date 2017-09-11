@@ -9,10 +9,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["esteban zapata"]
   spec.email         = ["estebanz01@outlook.com"]
 
-  spec.summary       = %q{A ruby gem for som specific statistics. A bad port of jStat js library.}
-  spec.description   = %q{This gem is intended to do the same job as jStat js library. The main
-                          idea is to provide ruby with statistical capabilities without the need
-                          of a statistical programming language like R or Octave.}
+  spec.summary       = %q{A ruby gem for som specific statistics. Inspired by the jStat js library.}
+  spec.description   = %q{This gem is intended to accomplish the same purpose as jStat js library:
+                          to provide ruby with statistical capabilities without the need
+                          of a statistical programming language like R or Octave. Some functions
+                          and capabilities are an implementation from other authors and are
+                          referenced properly in the class/method.}
   spec.homepage      = "https://github.com/estebanz01/ruby-statistics"
   spec.license       = "MIT"
 

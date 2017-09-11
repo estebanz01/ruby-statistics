@@ -20,9 +20,25 @@ Or install it yourself as:
 
     $ gem install statistics
 
-## Usage
+## Basic Usage
 
-TODO: Write usage instructions here
+just require the `statistics` gem in order to load it. If you don't have defined the `Distribution` namespace, the gem will assign an alias, reducing the number of namespaces needed to use a class.
+
+Right know you can load:
+
+* The whole statistics gem. `require 'statistics'`
+* A namespace. `require 'statistics/distribution'`
+* A class. `require 'statistics/distribution/normal'`
+
+Feel free to use the one that is more convenient to you.
+
+### Hello-World Example
+```ruby
+require 'statistics'
+
+poisson = Distribution::Poisson.new(l) # Using Distribution alias.
+normal = Statistics::Distribution::StandardNormal.new # Using all namespaces.
+```
 
 ## Development
 
