@@ -62,7 +62,7 @@ module Statistics
       # is TRUE or FALSE. It's a minor notation advantage to decide if reject the null hypothesis or not.
 
       def self.one_way_anova(alpha, *args)
-        f_score, df1, df2 = *self.class.anova_f_score(*args) # Splat array result
+        f_score, df1, df2 = *self.anova_f_score(*args) # Splat array result
 
         return if f_score.nil? || df1.nil? || df2.nil?
 
