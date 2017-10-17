@@ -1,7 +1,7 @@
 require 'descriptive_statistics'
 
-require_relative './math'
-Dir['./lib/statistics/**/*.rb'].each {|file| require file }
+require File.dirname(__FILE__) + '/math'
+Dir[ File.dirname(__FILE__) + '/statistics/**/*.rb'].each {|file| require file }
 
 module Statistics
   # Your code goes here...

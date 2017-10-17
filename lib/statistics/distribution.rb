@@ -1,4 +1,4 @@
-Dir['./lib/statistics/distribution/**/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/distribution/**/*.rb'].each {|file| require file }
 
 module Statistics
   module Distribution
