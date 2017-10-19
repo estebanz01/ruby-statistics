@@ -43,6 +43,9 @@ poisson = Distribution::Poisson.new(l) # Using Distribution alias.
 normal = Statistics::Distribution::StandardNormal.new # Using all namespaces.
 ```
 
+## Documentation
+You can find a bit more detailed documentation of all available distributions, tests and functions in the [Documentation Index](https://github.com/estebanz01/ruby-statistics/wiki/Documentation-Index)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
