@@ -1,5 +1,7 @@
 # Ruby Statistics
 
+![](https://travis-ci.org/estebanz01/ruby-statistics.svg?branch=master)
+
 A basic ruby gem that implements some statistical methods, functions and concepts to be used in any ruby environment without depending on any mathematical software like `R`, `Matlab`, `Octave` or similar.
 
 We got the inspiration from the folks at [JStat](https://github.com/jstat/jstat) and some interesting lectures about [Keystroke dynamics](http://www.biometric-solutions.com/keystroke-dynamics.html).
