@@ -28,6 +28,7 @@ module Statistics
       end
 
       def mean
+        return if alpha + beta == 0
         alpha / (alpha + beta)
       end
     end
