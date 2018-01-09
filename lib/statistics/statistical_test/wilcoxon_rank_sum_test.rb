@@ -87,5 +87,9 @@ module Statistics
         end
       end
     end
+
+    # Both test are the same. To keep the selected name, we just alias the class
+    # with the implementation.
+    MannWhitneyU = WilcoxonRankSumTest
   end
 end
