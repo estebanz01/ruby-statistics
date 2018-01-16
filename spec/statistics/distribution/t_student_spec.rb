@@ -58,4 +58,30 @@ describe Statistics::Distribution::TStudent do
       expect(described_class.new(v).variance).to be_nil
     end
   end
+
+  describe '#random' do
+    it 'generates a random number that follows a student-t distribution' do
+      # T sample elements generated in R with degrees of freedom 4 and seed 100
+      t_sample = [-0.55033048, -0.06690434, 0.11951965, -0.52008245, -1.11703451]
+      random_sample = described_class.new(4).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, t_sample, random_sample)
+
+      expect(test[:null]).to be true
+      expect(test[:alternative]).to be false
+    end
+
+    it 'does not generate a random sample that follows an uniform distribution' do
+      pending 'random sample follows an uniform and t-student distribution'
+
+      # Uniform sample elements generated in R with seed 100
+      uniform_sample = [0.30776611, 0.25767250, 0.55232243, 0.05638315, 0.46854928]
+      random_sample = described_class.new(4).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, uniform_sample, random_sample)
+
+      expect(test[:null]).to be false
+      expect(test[:alternative]).to be true
+    end
+  end
 end
