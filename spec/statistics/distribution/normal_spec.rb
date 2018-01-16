@@ -43,6 +43,17 @@ describe Statistics::Distribution::Normal do
       expect(test[:alternative]).to be false
     end
 
+    it 'does not generate a random sample that follows an uniform distribution' do
+      # Uniform sample elements generated in R with seed 100
+      uniform_sample = [0.30776611, 0.25767250, 0.55232243, 0.05638315, 0.46854928]
+      random_sample = described_class.new(5.0, 2.0).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, uniform_sample, random_sample)
+
+      expect(test[:null]).to be false
+      expect(test[:alternative]).to be true
+    end
+
     it 'generates the specified number of random elements and store it into an array' do
       elements = rand(2..5)
       sample = described_class.new(5.0, 2.0).random(elements: elements)
