@@ -73,4 +73,40 @@ describe Statistics::Distribution::Weibull do
       expect(described_class.new(shape, scale).variance).to eq expected
     end
   end
+
+  # To test random generation, we are going to use the Goodness-of-fit test
+  # to validate if a sample fits a weibull distribution.
+  describe '#random' do
+    it 'returns a pseudo random number that belongs to a weibull distribution' do
+      # Weibull sample generated from R with shape (k) 5, scale (lambda) 2.0 and seed 100
+      alpha = 0.01
+      weibull_sample = [2.066758, 2.125623, 1.801906, 2.470445, 1.892243]
+      random_sample = described_class.new(5.0, 2.0).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(alpha, weibull_sample, random_sample)
+
+      # Null hypothesis: Both samples belongs to the same distribution (weibull in this case)
+      # Alternative hypotesis: Each sample is generated with a different distribution.
+
+      expect(test[:null]).to be true
+      expect(test[:alternative]).to be false
+    end
+
+    it 'generates the specified number of random elements and store it into an array' do
+      elements = rand(2..5)
+      sample = described_class.new(5.0, 2.0).random(elements: elements)
+
+      expect(sample).to be_a Array
+      expect(sample.size).to eq elements
+    end
+
+    it 'returns a single random number when only one element is required' do
+      weibull = described_class.new(5.0, 2.0)
+      sample_1 = weibull.random # 1 element by default
+      sample_2 = weibull.random(elements: 1)
+
+      expect(sample_1).to be_a Numeric
+      expect(sample_2).to be_a Numeric
+    end
+  end
 end
