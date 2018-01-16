@@ -47,7 +47,9 @@ module Statistics
       end
 
       # Quantile function extracted from http://www.jennessent.com/arcview/idf.htm
+      # TODO: Make it truly Student's T sample.
       def random(elements: 1, seed: Random.new_seed)
+        warn 'This is an alpha version code. The generated sample is similar to an uniform distribution'
         srand(seed)
 
         v = degrees_of_freedom
