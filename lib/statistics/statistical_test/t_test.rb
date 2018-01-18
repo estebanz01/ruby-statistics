@@ -41,6 +41,28 @@ module Statistics
           alternative: p_value <= alpha,
           confidence_level: 1 - alpha }
       end
+
+      def self.paired_test(alpha, tails, left_group, right_group)
+        # Handy snippet grabbed from https://stackoverflow.com/questions/2682411/ruby-sum-corresponding-members-of-two-or-more-arrays
+        differences = [left_group, right_group].transpose.map { |value| value.reduce(:-) }
+
+        degrees_of_freedom = differences.size - 1
+        down = differences.standard_deviation/Math.sqrt(differences.size)
+
+        t_score = (differences.mean - 0)/down.to_f
+
+        probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)
+
+        p_value = 1 - probability
+        p_value *= 2 if tails == :two_tail
+
+        { probability: probability,
+          p_value: p_value,
+          alpha: alpha,
+          null: alpha < p_value,
+          alternative: p_value <= alpha,
+          confidence_level: 1 - alpha }
+      end
     end
   end
 end

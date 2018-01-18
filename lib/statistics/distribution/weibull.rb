@@ -41,6 +41,26 @@ module Statistics
 
         (scale ** 2) * (left - right)
       end
+
+      # Using the inverse CDF function, also called quantile, we can calculate
+      # a random sample that follows a weibull distribution.
+      #
+      # Formula extracted from http://www.stat.yale.edu/Courses/1997-98/101/chigf.htm
+      def random(elements: 1, seed: Random.new_seed)
+        results = []
+
+        srand(seed)
+
+        elements.times do
+          results << ((-1/scale) * Math.log(1 - rand)) ** (1/shape)
+        end
+
+        if elements == 1
+          results.first
+        else
+          results
+        end
+      end
     end
   end
 end

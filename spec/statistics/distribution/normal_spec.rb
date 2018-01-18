@@ -24,6 +24,53 @@ describe Statistics::Distribution::Normal do
       end
     end
   end
+
+  # To test random generation, we are going to use the Goodness-of-fit test
+  # to validate if a sample fits a normal distribution.
+  describe '#random' do
+    it 'returns a pseudo random number that belongs to a normal distribution' do
+      # Normal sample generated from R with mean 5, std 2.0 and seed 100
+      alpha = 0.01
+      normal_sample = [3.995615, 5.263062, 4.842166, 6.773570, 5.233943]
+      random_sample = described_class.new(5.0, 2.0).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(alpha, normal_sample, random_sample)
+
+      # Null hypothesis: Both samples belongs to the same distribution (normal in this case)
+      # Alternative hypotesis: Each sample is generated with a different distribution.
+
+      expect(test[:null]).to be true
+      expect(test[:alternative]).to be false
+    end
+
+    it 'does not generate a random sample that follows an uniform distribution' do
+      # Uniform sample elements generated in R with seed 100
+      uniform_sample = [0.30776611, 0.25767250, 0.55232243, 0.05638315, 0.46854928]
+      random_sample = described_class.new(5.0, 2.0).random(elements: 5, seed: 100)
+
+      test = Statistics::StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, uniform_sample, random_sample)
+
+      expect(test[:null]).to be false
+      expect(test[:alternative]).to be true
+    end
+
+    it 'generates the specified number of random elements and store it into an array' do
+      elements = rand(2..5)
+      sample = described_class.new(5.0, 2.0).random(elements: elements)
+
+      expect(sample).to be_a Array
+      expect(sample.size).to eq elements
+    end
+
+    it 'returns a single random number when only one element is required' do
+      normal = described_class.new(5.0, 2.0)
+      sample_1 = normal.random # 1 element by default
+      sample_2 = normal.random(elements: 1)
+
+      expect(sample_1).to be_a Numeric
+      expect(sample_2).to be_a Numeric
+    end
+  end
 end
 
 describe Statistics::Distribution::StandardNormal do
