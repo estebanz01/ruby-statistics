@@ -70,6 +70,7 @@ describe Statistics::StatisticalTest::WilcoxonRankSumTest do
       expect(result[:z].round(3)).to eq -0.186
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
+      expect(result[:p_value]).to eq 0.8525013990549617
     end
 
     it 'performs a wilcoxon rank sum/Mann-Whitney U test following example THREE' do
@@ -82,6 +83,7 @@ describe Statistics::StatisticalTest::WilcoxonRankSumTest do
       expect(result[:z].round(3)).to eq -2.988
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
+      expect(result[:p_value]).to eq 0.002808806689028387
     end
   end
 end
