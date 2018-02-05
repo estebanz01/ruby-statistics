@@ -1,5 +1,4 @@
-require 'descriptive_statistics'
-
+require File.dirname(__FILE__) + '/enumerable'
 require File.dirname(__FILE__) + '/math'
 Dir[ File.dirname(__FILE__) + '/statistics/**/*.rb'].each {|file| require file }
 

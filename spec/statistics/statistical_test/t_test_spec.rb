@@ -85,10 +85,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :one_tail, before, after)
 
-      # https://github.com/estebanz01/ruby-statistics/issues/13
-      # In the example, the p-value for one-side is 0.0006 but we have 0.0004
-      # Apparently, it's how ruby handles and calculates the float points
-      # expect(result[:p_value]).to eq 0.0006
+      expect(result[:p_value].round(4)).to eq 0.0006
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -100,10 +97,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, before, after)
 
-      # https://github.com/estebanz01/ruby-statistics/issues/13
-      # In the example, the p-value for one-side is 0.0012 but we have 0.0008
-      # Apparently, it's how ruby handles and calculates the float points
-      # expect(result[:p_value].round(4)).to eq 0.0012
+      expect(result[:p_value].round(4)).to eq 0.0012
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -123,10 +117,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, five_mts, ten_mts)
 
-      # https://github.com/estebanz01/ruby-statistics/issues/13
-      # In the example, the p-value for one-side is 0.0026 but we have 0.0024
-      # Apparently, it's how ruby handles and calculates the float points
-      # expect(result[:p_value].round(3)).to eq 0.026
+      expect(result[:p_value].round(3)).to eq 0.026
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
