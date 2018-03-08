@@ -2,6 +2,20 @@ require 'spec_helper'
 
 describe Statistics::StatisticalTest::TTest do
   describe '.perform' do
+    context 'when there is an standard deviation of zero' do
+      let(:alpha) { 0.05 }
+
+      it 'does not perform a t-test when standard deviation of zero' do
+        sample_1 = [1.0, 1.0, 1.0]
+
+        error_msg = 'Standard deviation for the difference is zero. Please, reconsider sample contents'
+
+        expect do
+          described_class.perform(alpha, :one_tail, sample_1)
+        end.to raise_error(described_class::ZeroStdError,  error_msg)
+      end
+    end
+
     # Example with one sample
     # explained here: https://secure.brightstat.com/index.php?id=40
     # A random sample of 22 fifth grade pupils have a grade point average of 5.0 in maths
@@ -59,6 +73,30 @@ describe Statistics::StatisticalTest::TTest do
   end
 
   describe '.paired_test' do
+    context 'when both samples have an standard deviation of zero' do
+      let(:alpha) { 0.05 }
+
+      it 'does not perform a paired test when both samples are the same' do
+        sample_1 = [1.0, 2.0]
+        sample_2 = sample_1
+
+        expect do
+          described_class.paired_test(alpha, :one_tail, sample_1, sample_2)
+        end.to raise_error(StandardError, 'both samples are the same')
+      end
+
+      it 'does not perform a paired test when both samples have an standard deviation of zero' do
+        sample_1 = [1.0, 2.0, 3.0]
+        sample_2 = [2.0, 3.0, 4.0]
+
+        error_msg = 'Standard deviation for the difference is zero. Please, reconsider sample contents'
+
+        expect do
+          described_class.paired_test(alpha, :one_tail, sample_1, sample_2)
+        end.to raise_error(described_class::ZeroStdError,  error_msg)
+      end
+    end
+
     # example ONE
     # explained here: https://onlinecourses.science.psu.edu/stat500/node/51
     # Trace metals in drinking water affect the flavor and an unusually high concentration can pose a health hazard.
