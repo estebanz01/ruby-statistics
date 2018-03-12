@@ -3,7 +3,7 @@ module Statistics
     class TTest
       # Errors for Zero std
       class ZeroStdError < StandardError
-        STD_ERROR_MSG = 'Standard deviation for the difference is zero. Please, reconsider sample contents'.freeze
+        STD_ERROR_MSG = 'Standard deviation for the difference or group is zero. Please, reconsider sample contents'.freeze
       end
 
       # Perform a T-Test for one or two samples.
@@ -13,12 +13,12 @@ module Statistics
 
         degrees_of_freedom = 0
 
+        # If the comparison mean has been specified
         t_score = if args[0].is_a? Numeric
                     data_mean = args[1].mean
                     data_std = args[1].standard_deviation
 
-                    puts data_std
-                    raise ZeroStdError.new, ZeroStdError::STD_ERROR_MSG if data_std == 0
+                    raise ZeroStdError, ZeroStdError::STD_ERROR_MSG if data_std == 0
 
                     comparison_mean = args[0]
                     degrees_of_freedom = args[1].size
@@ -52,7 +52,7 @@ module Statistics
       end
 
       def self.paired_test(alpha, tails, left_group, right_group)
-        raise StandardError.new('both samples are the same') if left_group == right_group
+        raise StandardError, 'both samples are the same' if left_group == right_group
 
         # Handy snippet grabbed from https://stackoverflow.com/questions/2682411/ruby-sum-corresponding-members-of-two-or-more-arrays
         differences = [left_group, right_group].transpose.map { |value| value.reduce(:-) }
@@ -60,7 +60,7 @@ module Statistics
         degrees_of_freedom = differences.size - 1
         difference_std = differences.standard_deviation
 
-        raise ZeroStdError.new, ZeroStdError::STD_ERROR_MSG if difference_std == 0
+        raise ZeroStdError, ZeroStdError::STD_ERROR_MSG if difference_std == 0
 
         down = difference_std/Math.sqrt(differences.size)
 

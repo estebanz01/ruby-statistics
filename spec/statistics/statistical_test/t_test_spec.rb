@@ -7,11 +7,12 @@ describe Statistics::StatisticalTest::TTest do
 
       it 'does not perform a t-test when standard deviation of zero' do
         sample_1 = [1.0, 1.0, 1.0]
+        mean = 1.0
 
-        error_msg = 'Standard deviation for the difference is zero. Please, reconsider sample contents'
+        error_msg = 'Standard deviation for the difference or group is zero. Please, reconsider sample contents'
 
         expect do
-          described_class.perform(alpha, :one_tail, sample_1)
+          described_class.perform(alpha, :one_tail, mean, sample_1)
         end.to raise_error(described_class::ZeroStdError,  error_msg)
       end
     end
@@ -89,7 +90,7 @@ describe Statistics::StatisticalTest::TTest do
         sample_1 = [1.0, 2.0, 3.0]
         sample_2 = [2.0, 3.0, 4.0]
 
-        error_msg = 'Standard deviation for the difference is zero. Please, reconsider sample contents'
+        error_msg = 'Standard deviation for the difference or group is zero. Please, reconsider sample contents'
 
         expect do
           described_class.paired_test(alpha, :one_tail, sample_1, sample_2)
