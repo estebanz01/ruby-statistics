@@ -36,7 +36,7 @@ module Statistics
 
                     standard_error = Math.sqrt(left_root + right_root)
 
-                    (sample_left_mean - sample_right_mean)/standard_error.to_f
+                    (sample_left_mean - sample_right_mean).abs/standard_error.to_f
                   end
 
         probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)

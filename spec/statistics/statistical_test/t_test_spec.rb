@@ -52,6 +52,11 @@ describe Statistics::StatisticalTest::TTest do
 
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
+
+        result = described_class.perform(alpha, :two_tail, younger_adults, older_adults)
+
+        expect(result[:null]).to be false
+        expect(result[:alternative]).to be true
       end
 
       # example TWO
@@ -66,6 +71,11 @@ describe Statistics::StatisticalTest::TTest do
         alpha = 0.01
 
         result = described_class.perform(alpha, :one_tail, experimental, comparison)
+
+        expect(result[:null]).to be false
+        expect(result[:alternative]).to be true
+
+        result = described_class.perform(alpha, :one_tail, comparison, experimental)
 
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
