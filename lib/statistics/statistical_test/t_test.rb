@@ -43,7 +43,8 @@ module Statistics
         p_value = 1 - probability
         p_value *= 2 if tails == :two_tail
 
-        { probability: probability,
+        { t_score: t_score,
+          probability: probability,
           p_value: p_value,
           alpha: alpha,
           null: alpha < p_value,
@@ -71,7 +72,8 @@ module Statistics
         p_value = 1 - probability
         p_value *= 2 if tails == :two_tail
 
-        { probability: probability,
+        { t_score: t_score,
+          probability: probability,
           p_value: p_value,
           alpha: alpha,
           null: alpha < p_value,

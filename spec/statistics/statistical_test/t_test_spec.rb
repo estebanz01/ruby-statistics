@@ -50,11 +50,13 @@ describe Statistics::StatisticalTest::TTest do
 
         result = described_class.perform(alpha, :two_tail, older_adults, younger_adults)
 
+        expect(result[:t_score].round(4)).to eq 4.2575
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = described_class.perform(alpha, :two_tail, younger_adults, older_adults)
 
+        expect(result[:t_score].round(4)).to eq 4.2575
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -72,11 +74,13 @@ describe Statistics::StatisticalTest::TTest do
 
         result = described_class.perform(alpha, :one_tail, experimental, comparison)
 
+        expect(result[:t_score].round(4)).to eq 3.5341
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = described_class.perform(alpha, :one_tail, comparison, experimental)
 
+        expect(result[:t_score].round(4)).to eq 3.5341
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -120,6 +124,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :one_tail, group_one, group_two)
 
+      expect(result[:t_score].round(4)).to eq 4.8638
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -134,6 +139,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :one_tail, before, after)
 
+      expect(result[:t_score].round(4)).to eq 4.9258
       expect(result[:p_value].round(4)).to eq 0.0006
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
@@ -146,6 +152,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, before, after)
 
+      expect(result[:t_score].round(4)).to eq 4.9258
       expect(result[:p_value].round(4)).to eq 0.0012
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
@@ -166,6 +173,7 @@ describe Statistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, five_mts, ten_mts)
 
+      expect(result[:t_score].round(4)).to eq 2.3697
       expect(result[:p_value].round(3)).to eq 0.026
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
