@@ -36,14 +36,15 @@ module Statistics
 
                     standard_error = Math.sqrt(left_root + right_root)
 
-                    (sample_left_mean - sample_right_mean)/standard_error.to_f
+                    (sample_left_mean - sample_right_mean).abs/standard_error.to_f
                   end
 
         probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)
         p_value = 1 - probability
         p_value *= 2 if tails == :two_tail
 
-        { probability: probability,
+        { t_score: t_score,
+          probability: probability,
           p_value: p_value,
           alpha: alpha,
           null: alpha < p_value,
@@ -71,7 +72,8 @@ module Statistics
         p_value = 1 - probability
         p_value *= 2 if tails == :two_tail
 
-        { probability: probability,
+        { t_score: t_score,
+          probability: probability,
           p_value: p_value,
           alpha: alpha,
           null: alpha < p_value,
