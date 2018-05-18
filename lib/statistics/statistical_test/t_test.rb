@@ -39,9 +39,16 @@ module Statistics
                     (sample_left_mean - sample_right_mean).abs/standard_error.to_f
                   end
 
-        probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)
-        p_value = 1 - probability
-        p_value *= 2 if tails == :two_tail
+        t_distribution = Distribution::TStudent.new(degrees_of_freedom)
+        probability = t_distribution.cumulative_function(t_score)
+
+        # Steps grabbed from https://support.minitab.com/en-us/minitab/18/help-and-how-to/statistics/basic-statistics/supporting-topics/basics/manually-calculate-a-p-value/
+        # See https://github.com/estebanz01/ruby-statistics/issues/23
+        p_value = if tails == :two_tail
+                  2 * (1 - t_distribution.cumulative_function(t_score.abs))
+                  else
+                    1 - probability
+                  end
 
         { t_score: t_score,
           probability: probability,
