@@ -62,11 +62,21 @@ describe Statistics::Distribution::Beta do
       expect(described_class.new(alpha, beta).mean).to be_nil
     end
 
+    it 'returns nil if the sum of alpha and beta is zero' do
+      alpha = -1
+      beta = 1
+
+      expect(described_class.new(alpha, beta).mean).to be_nil
+    end
+
     it 'calculates the expected mean for the beta distribution' do
       alpha = rand(-5..5)
       beta = rand(-5..5)
 
-      alpha = 1 if alpha + beta == 0 # To avoid NaN results.
+      if alpha + beta == 0 # To avoid NaN results.
+        alpha = 1
+        beta = 1
+      end
 
       expect(described_class.new(alpha, beta).mean).to eq alpha.to_f/(alpha.to_f + beta.to_f)
     end
