@@ -52,7 +52,7 @@ normal = Statistics::Distribution::StandardNormal.new # Using all namespaces.
 ```
 
 ## Documentation
-You can find a bit more detailed documentation of all available distributions, tests and functions in the [Documentation Index](https://github.com/estebanz01/ruby-statistics/wiki/Documentation-Index)
+You can find a bit more detailed documentation of all available distributions, tests and functions in the [Documentation Index](https://github.com/estebanz01/ruby-statistics/wiki)
 
 ## Development
 
