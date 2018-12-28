@@ -91,10 +91,40 @@ describe Statistics::SpearmanRankCoefficient do
         rho = described_class.coefficient(volume_rank, frequency_rank)
         expect(rho.round(3)).to eq -0.763
       end
+
+      it 'calcultes the spearman rank coefficient for example two' do
+        # Example taken from https://geographyfieldwork.com/SpearmansRank.htm
+        # Results from R:
+        # cor(c(50, 175, 270, 375, 425, 580, 710, 790, 890, 980), c(1.80, 1.20, 2.0, 1.0, 1.0, 1.20, 0.80, 0.60, 1.0, 0.85), method = 'spearman')
+        # [1] -0.7570127
+        distance = [50, 175, 270, 375, 425, 580, 710, 790, 890, 980]
+        price = [1.80, 1.20, 2.0, 1.0, 1.0, 1.20, 0.80, 0.60, 1.0, 0.85]
+
+        distance_rank = described_class.rank(data: distance)
+        price_rank = described_class.rank(data: price)
+
+        rho = described_class.coefficient(distance_rank, price_rank)
+
+        expect(rho.round(7)).to eq -0.7570127
+      end
+
+      it 'calculates the spearman rank coefficient for example three' do
+        # Example taken from http://www.real-statistics.com/correlation/spearmans-rank-correlation/spearmans-rank-correlation-detailed/
+
+        life_exp = [80, 78, 60, 53, 85, 84, 73, 79, 81, 75, 68, 72, 58, 92, 65]
+        cigarretes = [5, 23, 25, 48, 17, 8, 4, 26, 11, 19, 14, 35, 29, 4, 23]
+
+        life_rank = described_class.rank(data: life_exp)
+        cigarretes_rank = described_class.rank(data: cigarretes)
+
+        rho = described_class.coefficient(life_rank, cigarretes_rank)
+
+        expect(rho.round(5)).to eq -0.67442
+      end
     end
 
     context 'when there are no ties in the data' do
-      it 'calculates the spearman rank coefficient' do
+      it 'calculates the spearman rank coefficient for example one' do
         # Example taken from here: https://statistics.laerd.com/statistical-guides/spearmans-rank-order-correlation-statistical-guide-2.php
         english_data = [56, 75, 45, 71, 62, 64, 58, 80, 76, 61]
         math_data = [66, 70, 40, 60, 65, 56, 59, 77, 67, 63]
@@ -105,6 +135,19 @@ describe Statistics::SpearmanRankCoefficient do
         rho = described_class.coefficient(english_rank, math_rank)
 
         expect(rho.round(2)).to eq 0.67
+      end
+
+      it 'calculates the spearman rank coefficient for example two' do
+        # Example taken from here: https://www.statisticshowto.datasciencecentral.com/spearman-rank-correlation-definition-calculate/
+        physics = [35, 23, 47, 17, 10, 43, 9, 6, 28]
+        math = [30, 33, 45, 23, 8, 49, 12, 4, 31]
+
+        physics_rank = described_class.rank(data: physics)
+        math_rank = described_class.rank(data: math)
+
+        rho = described_class.coefficient(physics_rank, math_rank)
+
+        expect(rho).to eq 0.9
       end
     end
   end

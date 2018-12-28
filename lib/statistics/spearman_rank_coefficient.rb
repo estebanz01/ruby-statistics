@@ -5,6 +5,10 @@ module Statistics
       rankings = {}
 
       data.each do |value|
+        # If we have ties, the find_index method will only retrieve the index of the
+        # first element in the list (i.e, the most close to the left of the array),
+        # so when a tie is detected, we increase the temporal ranking by the number of
+        # counted elements at that particular time and then we increase the counter.
         temporal_ranking = descending_order_data.find_index(value) + 1 # 0-index
 
         if rankings.fetch(value, false)
@@ -50,8 +54,6 @@ module Statistics
 
         denominator = Math.sqrt(squared_differences_set_one * squared_differences_set_two)
 
-        puts numerator
-        puts denominator
         numerator / denominator.to_f # This is rho or spearman's coefficient.
       else
         sum_squared_differences = set_one.each_with_index.reduce(0) do |memo, (rank_one, index)|
