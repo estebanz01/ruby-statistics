@@ -55,15 +55,16 @@ describe Statistics::StatisticalTest::KolmogorovSmirnovTest do
       # D = 0.4, p-value = 0.873
       # alternative hypothesis: two-sided
 
-      men = Distribution::Normal.new(3.0, 1.0).random(elements: 5, seed: 100)
-      women = Distribution::Normal.new(3.0, 1.0).random(elements: 5, seed: 40)
+      men = Distribution::StandardNormal.new.random(elements: 500, seed: 10)
+      women = Distribution::StandardNormal.new.random(elements: 50, seed: 40)
 
       # alpha, by default, is 0.05
       result = described_class.two_samples(group_one: men, group_two: women)
 
+      puts result
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
-      expect(result[:d_max]).to eq 0.4
+      expect(result[:d_max]).to eq 0.12
     end
   end
 end
