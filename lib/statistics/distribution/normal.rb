@@ -79,5 +79,58 @@ module Statistics
         euler/Math.sqrt(2 * Math::PI)
       end
     end
+
+    # Standard Normal Inverse distribution:
+    # References:
+    # https://en.wikipedia.org/wiki/Inverse_distribution
+    # http://www.source-code.biz/snippets/vbasic/9.htm
+    class StandardNormalInverse < StandardNormal
+      A1 = -39.6968302866538
+      A2 = 220.946098424521
+      A3 = -275.928510446969
+      A4 = 138.357751867269
+      A5 = -30.6647980661472
+      A6 = 2.50662827745924
+      B1 = -54.4760987982241
+      B2 = 161.585836858041
+      B3 = -155.698979859887
+      B4 = 66.8013118877197
+      B5 = -13.2806815528857
+      C1 = -7.78489400243029E-03
+      C2 = -0.322396458041136
+      C3 = -2.40075827716184
+      C4 = -2.54973253934373
+      C5 =  4.37466414146497
+      C6 =  2.93816398269878
+      D1 =  7.78469570904146E-03
+      D2 =  0.32246712907004
+      D3 =  2.445134137143
+      D4 =  3.75440866190742
+      P_LOW = 0.02425
+      P_HIGH = 1 - P_LOW
+
+      def density_function(_)
+        raise NotImplementedError
+      end
+
+      def random(elements: 1, seed: Random.new_seed)
+        raise NotImplementedError
+      end
+
+      def cumulative_function(value)
+        raise ArgumentError if value < 0 || value > 1
+        if value < P_LOW
+          q = (-2 * Math::log(value))**0.5
+          (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1)
+        elsif value <= P_HIGH
+          q = value - 0.5
+          r = q * q
+          (((((A1 * r + A2) * r + A3) * r + A4) * r + A5) * r + A6) * q / (((((B1 * r + B2) * r + B3) * r + B4) * r + B5) * r + 1)
+        else
+          q = (-2 * Math::log(1 - value))**0.5
+          (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1)
+        end
+      end
+    end
   end
 end

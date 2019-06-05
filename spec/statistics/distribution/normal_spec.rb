@@ -97,3 +97,39 @@ describe Statistics::Distribution::StandardNormal do
     end
   end
 end
+
+describe Statistics::Distribution::StandardNormalInverse do
+  let(:standard_inverse_distribution) { described_class.new }
+
+  describe '#cumulative_function' do
+    it 'returns the expected probabilities for the standard normal inverse distribution' do
+      # results have been taken here https://www.excelfunctions.net/excel-normsinv-function.html
+      expect(standard_inverse_distribution.cumulative_function(0.25)).to eq -0.6744897502234195
+      expect(standard_inverse_distribution.cumulative_function(0.55)).to eq 0.12566134687610314
+      expect(standard_inverse_distribution.cumulative_function(0.9)).to eq 1.281551564140072
+
+      expect { standard_inverse_distribution.cumulative_function(-0.000001) }.to raise_error ArgumentError
+      expect { standard_inverse_distribution.cumulative_function(1.000001) }.to raise_error ArgumentError
+    end
+  end
+
+  describe '#density_function' do
+    let(:value) { 0.25 }
+
+    subject { described_class.new.density_function(value) }
+
+    it 'is not implemented' do
+      expect { subject }.to raise_error NotImplementedError
+    end
+  end
+
+  describe '#random' do
+    let(:value) { 0.25 }
+
+    subject { described_class.new.random(elements: value, seed: Random.new_seed) }
+
+    it 'is not implemented' do
+      expect { subject }.to raise_error NotImplementedError
+    end
+  end
+end
