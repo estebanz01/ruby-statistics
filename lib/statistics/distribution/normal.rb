@@ -118,7 +118,7 @@ module Statistics
       end
 
       def cumulative_function(value)
-        return 0 if value < 0 || value > 1
+        return 0 if value <= 0 || value >= 1
 
         if value < P_LOW
           q = (-2 * Math::log(value))**0.5

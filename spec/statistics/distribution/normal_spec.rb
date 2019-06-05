@@ -108,8 +108,8 @@ describe Statistics::Distribution::StandardNormalInverse do
       expect(standard_inverse_distribution.cumulative_function(0.55)).to eq 0.12566134687610314
       expect(standard_inverse_distribution.cumulative_function(0.9)).to eq 1.281551564140072
 
-      expect(standard_inverse_distribution.cumulative_function(-0.000001)).to be_zero
-      expect(standard_inverse_distribution.cumulative_function(1.000001)).to be_zero
+      expect(standard_inverse_distribution.cumulative_function(0)).to be_zero
+      expect(standard_inverse_distribution.cumulative_function(1)).to be_zero
     end
   end
 
