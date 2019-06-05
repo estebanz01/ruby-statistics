@@ -118,7 +118,8 @@ module Statistics
       end
 
       def cumulative_function(value)
-        raise ArgumentError if value < 0 || value > 1
+        return 0 if value < 0 || value > 1
+
         if value < P_LOW
           q = (-2 * Math::log(value))**0.5
           (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1)
