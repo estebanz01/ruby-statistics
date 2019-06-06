@@ -80,7 +80,7 @@ module Statistics
       end
     end
 
-    # Standard Normal Inverse distribution:
+    # Inverse Standard Normal distribution:
     # References:
     # https://en.wikipedia.org/wiki/Inverse_distribution
     # http://www.source-code.biz/snippets/vbasic/9.htm
@@ -100,12 +100,12 @@ module Statistics
       C2 = -0.322396458041136
       C3 = -2.40075827716184
       C4 = -2.54973253934373
-      C5 =  4.37466414146497
-      C6 =  2.93816398269878
-      D1 =  7.78469570904146E-03
-      D2 =  0.32246712907004
-      D3 =  2.445134137143
-      D4 =  3.75440866190742
+      C5 = 4.37466414146497
+      C6 = 2.93816398269878
+      D1 = 7.78469570904146E-03
+      D2 = 0.32246712907004
+      D3 = 2.445134137143
+      D4 = 3.75440866190742
       P_LOW = 0.02425
       P_HIGH = 1 - P_LOW
 
