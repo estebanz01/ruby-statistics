@@ -111,6 +111,7 @@ describe Statistics::Distribution::InverseStandardNormal do
       expect(standard_inverse_distribution.cumulative_function(0.55)).to eq 0.12566134687610314
       expect(standard_inverse_distribution.cumulative_function(0.69865437)).to eq 0.520534254262422
       expect(standard_inverse_distribution.cumulative_function(0.9)).to eq 1.281551564140072
+      expect(standard_inverse_distribution.cumulative_function(0.98)).to eq 2.0537489090030308
       expect(standard_inverse_distribution.cumulative_function(1)).to eq Float::INFINITY
       expect(standard_inverse_distribution.cumulative_function(1.0000001)).to be_nil
     end
