@@ -98,18 +98,21 @@ describe Statistics::Distribution::StandardNormal do
   end
 end
 
-describe Statistics::Distribution::StandardNormalInverse do
+describe Statistics::Distribution::InverseStandardNormal do
   let(:standard_inverse_distribution) { described_class.new }
 
   describe '#cumulative_function' do
     it 'returns the expected probabilities for the standard normal inverse distribution' do
       # results have been taken here https://www.excelfunctions.net/excel-normsinv-function.html
+      expect(standard_inverse_distribution.cumulative_function(-0.0000001)).to be_nil
+      expect(standard_inverse_distribution.cumulative_function(0)).to eq -Float::INFINITY
       expect(standard_inverse_distribution.cumulative_function(0.25)).to eq -0.6744897502234195
+      expect(standard_inverse_distribution.cumulative_function(0.356245)).to eq -0.3685140105744644
       expect(standard_inverse_distribution.cumulative_function(0.55)).to eq 0.12566134687610314
+      expect(standard_inverse_distribution.cumulative_function(0.69865437)).to eq 0.520534254262422
       expect(standard_inverse_distribution.cumulative_function(0.9)).to eq 1.281551564140072
-
-      expect(standard_inverse_distribution.cumulative_function(0)).to be_zero
-      expect(standard_inverse_distribution.cumulative_function(1)).to be_zero
+      expect(standard_inverse_distribution.cumulative_function(1)).to eq Float::INFINITY
+      expect(standard_inverse_distribution.cumulative_function(1.0000001)).to be_nil
     end
   end
 

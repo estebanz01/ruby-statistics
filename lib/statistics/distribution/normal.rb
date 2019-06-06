@@ -84,7 +84,7 @@ module Statistics
     # References:
     # https://en.wikipedia.org/wiki/Inverse_distribution
     # http://www.source-code.biz/snippets/vbasic/9.htm
-    class StandardNormalInverse < StandardNormal
+    class InverseStandardNormal < StandardNormal
       A1 = -39.6968302866538
       A2 = 220.946098424521
       A3 = -275.928510446969
@@ -118,17 +118,19 @@ module Statistics
       end
 
       def cumulative_function(value)
-        return 0 if value <= 0 || value >= 1
+        return if value < 0.0 || value > 1.0
+        return -1.0 * Float::INFINITY if value.zero?
+        return Float::INFINITY if value == 1.0
 
         if value < P_LOW
-          q = (-2 * Math::log(value))**0.5
-          (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1)
+          q = Math.sqrt((Math.log(value) * -2.0))
+          (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1.0)
         elsif value <= P_HIGH
           q = value - 0.5
-          r = q * q
-          (((((A1 * r + A2) * r + A3) * r + A4) * r + A5) * r + A6) * q / (((((B1 * r + B2) * r + B3) * r + B4) * r + B5) * r + 1)
+          r = q ** 2
+          (((((A1 * r + A2) * r + A3) * r + A4) * r + A5) * r + A6) * q / (((((B1 * r + B2) * r + B3) * r + B4) * r + B5) * r + 1.0)
         else
-          q = (-2 * Math::log(1 - value))**0.5
+          q = Math.sqrt((Math.log(1 - value) * -2.0))
           (((((C1 * q + C2) * q + C3) * q + C4) * q + C5) * q + C6) / ((((D1 * q + D2) * q + D3) * q + D4) * q + 1)
         end
       end
