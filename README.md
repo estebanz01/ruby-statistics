@@ -5,10 +5,10 @@
 A basic ruby gem that implements some statistical methods, functions and concepts to be used in any ruby environment without depending on any mathematical software like `R`, `Matlab`, `Octave` or similar.
 
 Unit test runs under the following ruby versions:
-* Ruby 2.2.
-* Ruby 2.3.1.
-* Ruby 2.4.0.
-* Ruby 2.5.0.
+* Ruby 2.5.1.
+* Ruby 2.6.0.
+* Ruby 2.6.3.
+* Ruby 2.6.5.
 
 We got the inspiration from the folks at [JStat](https://github.com/jstat/jstat) and some interesting lectures about [Keystroke dynamics](http://www.biometric-solutions.com/keystroke-dynamics.html).
 
