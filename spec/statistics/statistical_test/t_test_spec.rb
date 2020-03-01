@@ -23,12 +23,24 @@ describe Statistics::StatisticalTest::TTest do
     # with a standard deviation of 0.452, whereas marks range from 1 (worst) to 6 (excellent).
     # The grade point average (GPA) of all fifth grade pupils of the last five years is 4.7.
     # Is the GPA of the 22 pupils different from the populations’ GPA?
-    it 'performs a t-test with one sample' do
+    it 'performs a t-test with one sample for one tail' do
       student_grades = [5, 5.5, 4.5, 5, 5, 6, 5, 5, 4.5, 5, 5, 4.5, 4.5, 5.5, 4, 5, 5, 5.5, 4.5, 5.5, 5, 5.5]
       alpha = 0.05
 
       result = described_class.perform(alpha, :one_tail, 4.7, student_grades)
 
+      expect(result[:p_value].round(6)).to eq 0.003114 # R 3.5.1. calculates the p_value as 0.003114
+      expect(result[:null]).to be false
+      expect(result[:alternative]).to be true
+    end
+
+    it 'performs a t-test with one sample for two tails' do
+      student_grades = [5, 5.5, 4.5, 5, 5, 6, 5, 5, 4.5, 5, 5, 4.5, 4.5, 5.5, 4, 5, 5, 5.5, 4.5, 5.5, 5, 5.5]
+      alpha = 0.05
+
+      result = described_class.perform(alpha, :two_tail, 4.7, student_grades)
+
+      expect(result[:p_value].round(6)).to eq 0.006229 # R 3.5.1. calculates the p_value as 0.006229
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end

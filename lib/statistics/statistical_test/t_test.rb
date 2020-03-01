@@ -21,7 +21,7 @@ module Statistics
                     raise ZeroStdError, ZeroStdError::STD_ERROR_MSG if data_std == 0
 
                     comparison_mean = args[0]
-                    degrees_of_freedom = args[1].size
+                    degrees_of_freedom = args[1].size - 1
 
                     (data_mean - comparison_mean)/(data_std / Math.sqrt(args[1].size).to_f).to_f
                   else
