@@ -17,6 +17,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 2 --retry 1
+        bundle exec rake
   build_2_7:
 
     runs-on: ubuntu-latest
@@ -31,3 +32,4 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 2 --retry 1
+        bundle exec rake
