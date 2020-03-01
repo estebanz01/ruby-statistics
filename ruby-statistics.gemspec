@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rake", '~> 12.0', '>= 12.0.0'
-  spec.add_development_dependency "rspec", '~> 3.6', '>= 3.6.0'
+  spec.add_development_dependency "rspec", '>= 3.6.0'
   spec.add_development_dependency "grb", '~> 0.4.1', '>= 0.4.1'
-  spec.add_development_dependency 'byebug', '~> 9.1.0', '>= 9.1.0'
+  spec.add_development_dependency 'byebug', '>= 9.1.0'
 end

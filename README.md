@@ -9,6 +9,7 @@ Unit test runs under the following ruby versions:
 * Ruby 2.6.0.
 * Ruby 2.6.3.
 * Ruby 2.6.5.
+* Ruby 2.7.
 
 We got the inspiration from the folks at [JStat](https://github.com/jstat/jstat) and some interesting lectures about [Keystroke dynamics](http://www.biometric-solutions.com/keystroke-dynamics.html).
 
