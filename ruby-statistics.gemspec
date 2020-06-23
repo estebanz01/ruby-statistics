@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rake", '~> 12.0', '>= 12.0.0'
+  spec.add_development_dependency "rake", '>= 12.0.0', '~> 13.0'
   spec.add_development_dependency "rspec", '>= 3.6.0'
   spec.add_development_dependency "grb", '~> 0.4.1', '>= 0.4.1'
   spec.add_development_dependency 'byebug', '>= 9.1.0'
