@@ -14,7 +14,7 @@ module Statistics
         if rankings.fetch(value, false)
           rankings[value][:rank] += (temporal_ranking + rankings[value][:counter])
           rankings[value][:counter] += 1
-          rankings[value][:tie_rank] = rankings[value][:rank] / rankings[value][:counter].to_f
+          rankings[value][:tie_rank] = rankings[value][:rank] / rankings[value][:counter].to_r
         else
           rankings[value] = { counter: 1, rank: temporal_ranking, tie_rank: temporal_ranking }
         end
@@ -35,7 +35,7 @@ module Statistics
       return if set_one.size == 0 && set_two.size == 0
 
       set_one_mean, set_two_mean = set_one.mean, set_two.mean
-      have_tie_ranks = (set_one + set_two).any? { |rank| rank.is_a?(Float) }
+      have_tie_ranks = (set_one + set_two).any? { |rank| rank.is_a?(Float) || rank.is_a?(Rational) }
 
       if have_tie_ranks
         numerator = 0
@@ -54,7 +54,7 @@ module Statistics
 
         denominator = Math.sqrt(squared_differences_set_one * squared_differences_set_two)
 
-        numerator / denominator.to_f # This is rho or spearman's coefficient.
+        numerator / denominator.to_r # This is rho or spearman's coefficient.
       else
         sum_squared_differences = set_one.each_with_index.reduce(0) do |memo, (rank_one, index)|
           memo += ((rank_one - set_two[index]) ** 2)
@@ -64,7 +64,7 @@ module Statistics
         numerator = 6 * sum_squared_differences
         denominator = ((set_one.size ** 3) - set_one.size)
 
-        1.0 - (numerator / denominator.to_f) # This is rho or spearman's coefficient.
+        1.0 - (numerator / denominator.to_r) # This is rho or spearman's coefficient.
       end
     end
   end

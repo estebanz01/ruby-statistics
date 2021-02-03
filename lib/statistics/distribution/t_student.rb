@@ -29,7 +29,7 @@ module Statistics
         upper = Math.gamma((degrees_of_freedom + 1)/2.0)
         lower = Math.sqrt(degrees_of_freedom * Math::PI) * Math.gamma(degrees_of_freedom/2.0)
         left = upper/lower
-        right = (1 + ((value ** 2)/degrees_of_freedom.to_f)) ** -((degrees_of_freedom + 1)/2.0)
+        right = (1 + ((value ** 2)/degrees_of_freedom.to_r)) ** -((degrees_of_freedom + 1)/2.0)
 
         left * right
       end
@@ -64,8 +64,8 @@ module Statistics
           results << Math.simpson_rule(threshold, y, 10_000) do |t|
             up = Math.gamma((v+1)/2.0)
             down = Math.sqrt(Math::PI * v) * Math.gamma(v/2.0)
-            right = (1 + ((y ** 2)/v.to_f)) ** ((v+1)/2.0)
-            left = up/down.to_f
+            right = (1 + ((y ** 2)/v.to_r)) ** ((v+1)/2.0)
+            left = up/down.to_r
 
             left * right
           end

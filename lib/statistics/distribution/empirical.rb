@@ -19,7 +19,7 @@ module Statistics
           summation
         end
 
-        cumulative_sum / samples.size.to_f
+        cumulative_sum / samples.size.to_r
       end
     end
   end

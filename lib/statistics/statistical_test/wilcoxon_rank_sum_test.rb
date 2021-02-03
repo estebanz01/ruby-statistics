@@ -73,7 +73,7 @@ module Statistics
                     memo += ((t[:counter] ** 3) - t[:counter])/12.0
                   end
 
-        left = (total_group_one * total_group_two)/(n * (n - 1)).to_f
+        left = (total_group_one * total_group_two)/(n * (n - 1)).to_r
         right = (((n ** 3) - n)/12.0) - rank_sum
 
         Math.sqrt(left * right)
@@ -82,7 +82,7 @@ module Statistics
       private def ranked_sum_for(total, group)
         # sum rankings per group
         group.reduce(0) do |memo, element|
-          rank_of_element = total[element][:rank] / total[element][:counter].to_f
+          rank_of_element = total[element][:rank] / total[element][:counter].to_r
           memo += rank_of_element
         end
       end

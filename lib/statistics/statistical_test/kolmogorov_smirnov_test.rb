@@ -17,7 +17,7 @@ module Statistics
 
         # TODO: Validate calculation of Common alpha.
         common_alpha = Math.sqrt((-0.5 * Math.log(alpha)))
-        radicand = (group_one.size + group_two.size) / (group_one.size * group_two.size).to_f
+        radicand = (group_one.size + group_two.size) / (group_one.size * group_two.size).to_r
 
         critical_d = common_alpha * Math.sqrt(radicand)
         # critical_d = self.critical_d(alpha: alpha, n: samples.size)

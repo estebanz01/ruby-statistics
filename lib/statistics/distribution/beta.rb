@@ -4,8 +4,8 @@ module Statistics
       attr_accessor :alpha, :beta
 
       def initialize(alp, bet)
-        self.alpha = alp.to_f
-        self.beta = bet.to_f
+        self.alpha = alp.to_r
+        self.beta = bet.to_r
       end
 
       def cumulative_function(value)

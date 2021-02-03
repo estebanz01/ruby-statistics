@@ -5,9 +5,9 @@ module Statistics
       alias_method :mode, :mean
 
       def initialize(avg, std)
-        self.mean = avg.to_f
-        self.standard_deviation = std.to_f
-        self.variance = std.to_f**2
+        self.mean = avg.to_r
+        self.standard_deviation = std.to_r
+        self.variance = std.to_r**2
       end
 
       def cumulative_function(value)

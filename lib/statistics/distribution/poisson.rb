@@ -18,7 +18,7 @@ module Statistics
         upper = (expected_number_of_occurrences ** k) * Math.exp(-expected_number_of_occurrences)
         lower = Math.factorial(k)
 
-        upper/lower.to_f
+        upper/lower.to_r
       end
 
       def cumulative_function(k)
@@ -31,7 +31,7 @@ module Statistics
 
         # We need the right tail, i.e.: The upper incomplete gamma function. This can be
         # achieved by doing a substraction between 1 and the lower incomplete gamma function.
-        1 - (upper/lower.to_f)
+        1 - (upper/lower.to_r)
       end
     end
   end

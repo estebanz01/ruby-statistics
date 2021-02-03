@@ -24,7 +24,7 @@ module Statistics
       end
 
       def self.skewness(p)
-        (1.0 - 2.0*p).to_f / Math.sqrt(p * (1.0 - p))
+        (1.0 - 2.0*p).to_r / Math.sqrt(p * (1.0 - p))
       end
 
       def self.kurtosis(p)
