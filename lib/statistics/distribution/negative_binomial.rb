@@ -25,21 +25,21 @@ module Statistics
       end
 
       def mean
-        (probability_per_trial * number_of_failures)/(1 - probability_per_trial).to_f
+        (probability_per_trial * number_of_failures)/(1 - probability_per_trial).to_r
       end
 
       def variance
-        (probability_per_trial * number_of_failures)/((1 - probability_per_trial) ** 2).to_f
+        (probability_per_trial * number_of_failures)/((1 - probability_per_trial) ** 2).to_r
       end
 
       def skewness
-        (1 + probability_per_trial).to_f / Math.sqrt(probability_per_trial * number_of_failures)
+        (1 + probability_per_trial).to_r / Math.sqrt(probability_per_trial * number_of_failures)
       end
 
       def mode
         if number_of_failures > 1
           up = probability_per_trial * (number_of_failures - 1)
-          down = (1 - probability_per_trial).to_f
+          down = (1 - probability_per_trial).to_r
 
           (up/down).floor
         elsif number_of_failures <= 1

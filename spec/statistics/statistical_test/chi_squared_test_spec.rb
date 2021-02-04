@@ -45,10 +45,10 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
   describe '.goodness_of_fit' do
     it 'perform a goodness of fit test following example ONE' do
       observed_counts = [212, 147, 103, 50, 46, 42]
-      expected = 100
+      expected = 100 # this is equal to [100, 100, 100, 100, 100, 100]
       result = described_class.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.509459637982218e-12
+      expect(result[:p_value]).to eq -6.509237593377293e-12
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end

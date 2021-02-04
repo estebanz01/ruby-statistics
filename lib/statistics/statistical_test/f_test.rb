@@ -19,7 +19,7 @@ module Statistics
         if args.size == 2
           variances = [args[0].variance, args[1].variance]
 
-          f_score = variances.max/variances.min.to_f
+          f_score = variances.max/variances.min.to_r
           df1 = 1 # k-1 (k = 2)
           df2 = args.flatten.size - 2 # N-k (k = 2)
         elsif args.size > 2
@@ -37,18 +37,18 @@ module Statistics
           variance_between_groups = iterator.reduce(0) do |summation, (size, index)|
             inner_calculation = size * ((sample_means[index] - overall_mean) ** 2)
 
-            summation += (inner_calculation / (total_groups - 1).to_f)
+            summation += (inner_calculation / (total_groups - 1).to_r)
           end
 
           # Variance within groups
           variance_within_groups = (0...total_groups).reduce(0) do |outer_summation, group_index|
             outer_summation += args[group_index].reduce(0) do |inner_sumation, observation|
               inner_calculation = ((observation - sample_means[group_index]) ** 2)
-              inner_sumation += (inner_calculation / (total_elements - total_groups).to_f)
+              inner_sumation += (inner_calculation / (total_elements - total_groups).to_r)
             end
           end
 
-          f_score = variance_between_groups/variance_within_groups.to_f
+          f_score = variance_between_groups/variance_within_groups.to_r
           df1 = total_groups - 1
           df2 = total_elements - total_groups
         end

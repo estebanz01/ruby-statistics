@@ -23,7 +23,7 @@ module Statistics
                     comparison_mean = args[0]
                     degrees_of_freedom = args[1].size - 1
 
-                    (data_mean - comparison_mean)/(data_std / Math.sqrt(args[1].size).to_f).to_f
+                    (data_mean - comparison_mean)/(data_std / Math.sqrt(args[1].size).to_r).to_r
                   else
                     sample_left_mean = args[0].mean
                     sample_left_variance = args[0].variance
@@ -31,12 +31,12 @@ module Statistics
                     sample_right_mean = args[1].mean
                     degrees_of_freedom = args.flatten.size - 2
 
-                    left_root = sample_left_variance/args[0].size.to_f
-                    right_root = sample_right_variance/args[1].size.to_f
+                    left_root = sample_left_variance/args[0].size.to_r
+                    right_root = sample_right_variance/args[1].size.to_r
 
                     standard_error = Math.sqrt(left_root + right_root)
 
-                    (sample_left_mean - sample_right_mean).abs/standard_error.to_f
+                    (sample_left_mean - sample_right_mean).abs/standard_error.to_r
                   end
 
         t_distribution = Distribution::TStudent.new(degrees_of_freedom)
@@ -72,7 +72,7 @@ module Statistics
 
         down = difference_std/Math.sqrt(differences.size)
 
-        t_score = (differences.mean - 0)/down.to_f
+        t_score = (differences.mean - 0)/down.to_r
 
         probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)
 

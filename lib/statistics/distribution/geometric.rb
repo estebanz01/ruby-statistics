@@ -4,7 +4,7 @@ module Statistics
       attr_accessor :probability_of_success, :always_success_allowed
 
       def initialize(p, always_success: false)
-        self.probability_of_success = p.to_f
+        self.probability_of_success = p.to_r
         self.always_success_allowed = always_success
       end
 

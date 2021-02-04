@@ -9,11 +9,11 @@ module Math
   end
 
   def self.combination(n, r)
-    self.factorial(n)/(self.factorial(r) * self.factorial(n - r)).to_f # n!/(r! * [n - r]!)
+    self.factorial(n)/(self.factorial(r) * self.factorial(n - r)).to_r # n!/(r! * [n - r]!)
   end
 
   def self.permutation(n, k)
-    self.factorial(n)/self.factorial(n - k).to_f
+    self.factorial(n)/self.factorial(n - k).to_r
   end
 
   # Function adapted from the python implementation that exists in https://en.wikipedia.org/wiki/Simpson%27s_rule#Sample_implementation
@@ -24,7 +24,8 @@ module Math
       return
     end
 
-    h = (b - a)/n.to_f
+    h = (b - a)/n.to_r
+
     resA = yield(a)
     resB = yield(b)
 
@@ -45,7 +46,7 @@ module Math
 
   def self.lower_incomplete_gamma_function(s, x)
     # The greater the iterations, the better. That's why we are iterating 10_000 * x times
-    self.simpson_rule(0, x, (10_000 * x.round).round) do |t|
+    self.simpson_rule(0, x.to_r, (10_000 * x.round).round) do |t|
       (t ** (s - 1)) * Math.exp(-t)
     end
   end
@@ -72,7 +73,7 @@ module Math
     # To avoid overflow problems, the implementation applies the logarithm properties
     # to calculate in a faster and safer way the values.
     lbet_ab = (Math.lgamma(alp)[0] + Math.lgamma(bet)[0] - Math.lgamma(alp + bet)[0]).freeze
-    front = (Math.exp(Math.log(x) * alp + Math.log(1.0 - x) * bet - lbet_ab) / alp.to_f).freeze
+    front = (Math.exp(Math.log(x) * alp + Math.log(1.0 - x) * bet - lbet_ab) / alp.to_r).freeze
 
     # This is the non-log version of the left part of the formula (before the continuous fraction)
     # down_left = alp * self.beta_function(alp, bet)

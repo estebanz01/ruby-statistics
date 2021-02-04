@@ -4,8 +4,8 @@ module Statistics
       attr_accessor :shape, :scale # k and lambda
 
       def initialize(k, lamb)
-        self.shape = k.to_f
-        self.scale = lamb.to_f
+        self.shape = k.to_r
+        self.scale = lamb.to_r
       end
 
       def cumulative_function(random_value)

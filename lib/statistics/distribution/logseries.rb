@@ -6,7 +6,7 @@ module Statistics
         k = k.to_i
 
         left = (-1.0 / Math.log(1.0 - p))
-        right = (p ** k).to_f
+        right = (p ** k).to_r
 
         left * right / k
       end
@@ -44,7 +44,7 @@ module Statistics
         up = p + Math.log(1.0 - p)
         down = ((1.0 - p) ** 2) * (Math.log(1.0 - p) ** 2)
 
-        (-1.0 * p) * (up / down.to_f)
+        (-1.0 * p) * (up / down.to_r)
       end
     end
   end

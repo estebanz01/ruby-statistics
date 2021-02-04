@@ -8,12 +8,12 @@ module Statistics
         statistic = if expected.is_a? Numeric
                       observed.reduce(0) do |memo, observed_value|
                         up = (observed_value - expected) ** 2
-                        memo += (up/expected.to_f)
+                        memo += (up/expected.to_r)
                       end
                     else
                       expected.each_with_index.reduce(0) do |memo, (expected_value, index)|
                         up = (observed[index] - expected_value) ** 2
-                        memo += (up/expected_value.to_f)
+                        memo += (up/expected_value.to_r)
                       end
                     end
 

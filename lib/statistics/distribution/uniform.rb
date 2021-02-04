@@ -4,8 +4,8 @@ module Statistics
       attr_accessor :left, :right
 
       def initialize(a, b)
-        self.left = a.to_f
-        self.right = b.to_f
+        self.left = a.to_r
+        self.right = b.to_r
       end
 
       def density_function(value)

@@ -52,11 +52,11 @@ describe Statistics::Distribution::F do
   describe '#mode' do
     it 'returns the expected mode for the F distribution' do
       d1, d2 = rand(3..10), rand(10)
-      expected_mode = ((d1 - 2)/d1.to_f) * (d2/(d2 + 2).to_f)
+      expected_mode = ((d1 - 2)/d1.to_r) * (d2/(d2 + 2).to_r)
 
       f_distribution = described_class.new(d1, d2)
 
-      expect(f_distribution.mode).to eq expected_mode
+      expect(f_distribution.mode).to eq expected_mode.to_f
     end
 
     it 'is not defined for d1 values less or equal than 2' do
