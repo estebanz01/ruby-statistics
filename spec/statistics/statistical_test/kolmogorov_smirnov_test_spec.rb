@@ -37,8 +37,8 @@ describe Statistics::StatisticalTest::KolmogorovSmirnovTest do
       # D = 1, p-value = 6.657e-08
       # alternative hypothesis: two-sided
 
-      men = Distribution::Normal.new(3.0, 1.0).random(elements: 10, seed: 100)
-      women = Distribution::Weibull.new(2.0, 3.0).random(elements: 20, seed: 100)
+      men = Statistics::Distribution::Normal.new(3.0, 1.0).random(elements: 10, seed: 100)
+      women = Statistics::Distribution::Weibull.new(2.0, 3.0).random(elements: 20, seed: 100)
 
       # alpha, by default, is 0.05
       result = described_class.two_samples(group_one: men, group_two: women)
@@ -55,8 +55,8 @@ describe Statistics::StatisticalTest::KolmogorovSmirnovTest do
       # D = 0.4, p-value = 0.873
       # alternative hypothesis: two-sided
 
-      men = Distribution::StandardNormal.new.random(elements: 500, seed: 10)
-      women = Distribution::StandardNormal.new.random(elements: 50, seed: 40)
+      men = Statistics::Distribution::StandardNormal.new.random(elements: 500, seed: 10)
+      women = Statistics::Distribution::StandardNormal.new.random(elements: 50, seed: 40)
 
       # alpha, by default, is 0.05
       result = described_class.two_samples(group_one: men, group_two: women)

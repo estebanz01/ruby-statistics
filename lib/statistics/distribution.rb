@@ -5,7 +5,3 @@ module Statistics
   end
 end
 
-# If Distribution is not defined, setup alias.
-if defined?(Statistics) && !(defined?(Distribution))
-  Distribution = Statistics::Distribution
-end

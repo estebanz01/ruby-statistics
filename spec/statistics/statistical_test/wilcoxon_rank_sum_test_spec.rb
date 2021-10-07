@@ -40,7 +40,7 @@ describe Statistics::StatisticalTest::WilcoxonRankSumTest do
   # earthquakes compared by magnitude (TWO) and depth (THREE).
   describe '#perform' do
     it 'always computes the test approximating the U-statistic to the standard normal distribution' do
-      expect_any_instance_of(Distribution::StandardNormal)
+      expect_any_instance_of(Statistics::Distribution::StandardNormal)
         .to receive(:cumulative_function).and_call_original
 
       result = test_class.perform(0.05, :two_tail, [1,2,3], [4,5,6])
