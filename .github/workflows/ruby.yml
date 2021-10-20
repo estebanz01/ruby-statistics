@@ -35,7 +35,7 @@ jobs:
         bundle install --jobs 2 --retry 1
         bundle exec rake
         
-build_3_0:
+  build_3_0:
 
     runs-on: ubuntu-latest
 
