@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby 2.6
-      uses: ruby/setup-ruby@v1.117.0
+      uses: ruby/setup-ruby@v1.118.0
       with:
         ruby-version: 2.6.8
     - name: Build and test with Rake
@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby 2.7
-      uses: ruby/setup-ruby@v1.117.0
+      uses: ruby/setup-ruby@v1.118.0
       with:
         ruby-version: 2.7.4
     - name: Build and test with Rake
@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby 3.0
-      uses: ruby/setup-ruby@v1.117.0
+      uses: ruby/setup-ruby@v1.118.0
       with:
         ruby-version: 3.0.2
     - name: Build and test with Rake
