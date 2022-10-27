@@ -96,7 +96,7 @@ describe Math do
       it 'does not try to perform a division by zero' do
         expect do
           described_class.lower_incomplete_gamma_function(s_parameter, x)
-        end.not_to raise_error(ZeroDivisionError)
+        end.not_to raise_error
       end
 
       it "tries to solve the function using simpson's rule with at least 100_000 iterations" do

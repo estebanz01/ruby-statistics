@@ -48,7 +48,7 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       expected = 100 # this is equal to [100, 100, 100, 100, 100, 100]
       result = described_class.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.509237593377293e-12
+      expect(result[:p_value]).to eq -6.5358829459682966e-12
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
