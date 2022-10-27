@@ -70,9 +70,16 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
     it 'performs a goodness of fit test with values that generates small chi statistics' do
       observed_counts = [481, 483, 482, 488, 478, 471, 477, 479, 475, 462]
       expected = 477
+
+      result = {}
+
       expect do
-        described_class.goodness_of_fit(0.01, expected, observed_counts)
-      end.not_to raise_error(ZeroDivisionError)
+        result = described_class.goodness_of_fit(0.01, expected, observed_counts)
+      end.not_to raise_error
+
+      expect(result[:p_value].round(4)).to eq(0.9995)
+      expect(result[:null]).to be true
+      expect(result[:alternative]).to be false
     end
   end
 end
