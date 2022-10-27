@@ -85,6 +85,26 @@ describe Math do
         ).to eq results[index]
       end
     end
+
+    # The following context is based on the numbers reported in https://github.com/estebanz01/ruby-statistics/issues/78
+    # which give us a minimum test case scenario where the integral being solved with simpson's rule
+    # uses zero iterations, raising errors.
+    context 'When X for the lower incomplete gamma function is rounded to zero' do
+      let(:s_parameter) { 4.5 }
+      let(:x) { (52/53).to_r }
+
+      it 'does not try to perform a division by zero' do
+        expect do
+          described_class.lower_incomplete_gamma_function(s_parameter, x)
+        end.not_to raise_error(ZeroDivisionError)
+      end
+
+      it "tries to solve the function using simpson's rule with at least 100_000 iterations" do
+        expect(described_class).to receive(:simpson_rule).with(0, x, 100_000)
+
+        described_class.lower_incomplete_gamma_function(s_parameter, x)
+      end
+    end
   end
 
   describe '.beta_function' do
