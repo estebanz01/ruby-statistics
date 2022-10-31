@@ -117,6 +117,31 @@ describe BigDecimal do
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end
+
+    # The following test is based on the numbers reported in https://github.com/estebanz01/ruby-statistics/issues/78
+    # which give us a minimum test case scenario where the integral being solved with simpson's rule
+    # uses zero iterations, raising errors.
+    it 'performs a goodness of fit test with values that generates small chi statistics' do
+      observed_counts = [
+        BigDecimal(481, 1), BigDecimal(483, 1),
+        BigDecimal(482, 1), BigDecimal(488, 1),
+        BigDecimal(478, 1), BigDecimal(471, 1),
+        BigDecimal(477, 1), BigDecimal(479, 1),
+        BigDecimal(475, 1), BigDecimal(462, 1)
+      ]
+
+      expected = BigDecimal(477, 1)
+
+      result = {}
+
+      expect do
+        result = StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, expected, observed_counts)
+      end.not_to raise_error
+
+      expect(result[:p_value].round(4)).to eq(0.9995)
+      expect(result[:null]).to be true
+      expect(result[:alternative]).to be false
+    end
   end
 
   context 'when bigdecimal is used in F tests' do
