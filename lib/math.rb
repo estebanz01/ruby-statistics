@@ -104,9 +104,9 @@ module Math
 
       d = 1.0 + numerator * d
       d = tiny if d.abs < tiny
-      d = 1.0 / d
+      d = 1.0 / d.to_r
 
-      c = 1.0 + numerator / c
+      c = 1.0 + numerator / c.to_r
       c = tiny if c.abs < tiny
 
       cd = (c*d).freeze
