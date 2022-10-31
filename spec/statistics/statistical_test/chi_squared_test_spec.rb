@@ -48,7 +48,7 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       expected = 100 # this is equal to [100, 100, 100, 100, 100, 100]
       result = described_class.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.509237593377293e-12
+      expect(result[:p_value]).to eq -6.5358829459682966e-12
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -60,6 +60,24 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       result = described_class.goodness_of_fit(0.05, expected, observed)
 
       expect(result[:p_value].round(4)).to eq 0.4359
+      expect(result[:null]).to be true
+      expect(result[:alternative]).to be false
+    end
+
+    # The following test is based on the numbers reported in https://github.com/estebanz01/ruby-statistics/issues/78
+    # which give us a minimum test case scenario where the integral being solved with simpson's rule
+    # uses zero iterations, raising errors.
+    it 'performs a goodness of fit test with values that generates small chi statistics' do
+      observed_counts = [481, 483, 482, 488, 478, 471, 477, 479, 475, 462]
+      expected = 477
+
+      result = {}
+
+      expect do
+        result = described_class.goodness_of_fit(0.01, expected, observed_counts)
+      end.not_to raise_error
+
+      expect(result[:p_value].round(4)).to eq(0.9995)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end

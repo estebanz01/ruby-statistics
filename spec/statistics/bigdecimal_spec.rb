@@ -96,7 +96,7 @@ describe BigDecimal do
       expected = BigDecimal(100, 1)
       result = StatisticalTest::ChiSquaredTest.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.509459637982218e-12
+      expect(result[:p_value]).to eq -6.5354388567584465e-12
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
