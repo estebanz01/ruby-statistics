@@ -190,5 +190,35 @@ describe Statistics::StatisticalTest::TTest do
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
+
+    # Calculations match R:
+    #
+    # left_group <- c(0.12819915256260872, 0.24345459073897613, 0.27517650565714014, 0.8522185144081152, 0.05471111219486524)
+    # right_group <- c(0.3272414061985621, 0.2989306116723194, 0.642664937717922, 0.9476073892620895, 0.7050008194345182)
+    #
+    # t.test(left_group, right_group, alternative = 'two.sided', paired = TRUE, conf.level = 0.99)
+    #
+    #   Paired t-test
+    #
+    # data:  left_group and right_group
+    # t = -2.5202, df = 4, p-value = 0.06534
+    # alternative hypothesis: true mean difference is not equal to 0
+    # 99 percent confidence interval:
+    # -0.7732524  0.2261783
+    # sample estimates:
+    # mean difference
+    #     -0.2735371
+    it 'performs a paired t-test (two tail) returning a p_value always smaller than 1' do
+      left_group = [0.12819915256260872, 0.24345459073897613, 0.27517650565714014, 0.8522185144081152, 0.05471111219486524]
+      right_group = [0.3272414061985621, 0.2989306116723194, 0.642664937717922, 0.9476073892620895, 0.7050008194345182]
+      alpha = 0.01
+
+      result = described_class.paired_test(alpha, :two_tail, left_group, right_group)
+
+      expect(result[:t_score].round(4)).to eq -2.5202
+      expect(result[:p_value].round(5)).to eq 0.06534
+      expect(result[:null]).to be true
+      expect(result[:alternative]).to be false
+    end
   end
 end
