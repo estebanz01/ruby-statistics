@@ -74,10 +74,14 @@ module Statistics
 
         t_score = (differences.mean - 0)/down.to_r
 
-        probability = Distribution::TStudent.new(degrees_of_freedom).cumulative_function(t_score)
+        t_distribution = Distribution::TStudent.new(degrees_of_freedom)
+        probability = t_distribution.cumulative_function(t_score)
 
-        p_value = 1 - probability
-        p_value *= 2 if tails == :two_tail
+        p_value = if tails == :two_tail
+                  2 * (1 - t_distribution.cumulative_function(t_score.abs))
+                  else
+                    1 - probability
+                  end
 
         { t_score: t_score,
           probability: probability,
