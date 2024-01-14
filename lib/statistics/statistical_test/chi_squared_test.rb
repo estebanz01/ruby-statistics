@@ -48,12 +48,12 @@ module Statistics
       # X   20  18
       # Y    7  35
       #
-      # They have been tested using 2x2 and 3x3 tables.
+      # They have been tested using 2x2 and 3x3 tables. Tables are implemented as type Matrix.
       #
-      def self.test_of_independence_matr(alpha, observed_matr)
-        expected_matr = calculate_expected_matr(observed_matr)
-        df = (observed_matr.row_size - 1) * (observed_matr.column_size - 1)
-        chi_score = chi_statistic_matr(observed_matr, expected_matr)
+      def self.test_of_independence(alpha, observed_matrix)
+        expected_matrix = calculate_expected_matrix(observed_matrix)
+        df = (observed_matrix.row_size - 1) * (observed_matrix.column_size - 1)
+        chi_score = chi_statistic_matrix(observed_matrix, expected_matrix)
         probability = 1.0 - Statistics::Distribution::ChiSquared.new(df).cumulative_function(chi_score)
         p_value = 1.0 - probability
     
@@ -66,35 +66,36 @@ module Statistics
           null: alpha < p_value,
           alternative: p_value <= alpha,
           confidence_level: 1 - alpha,
-          expected: expected_matr
+          expected: expected_matrix
         }
       end
       
       # For a contingency table of observed values, calculate the expected values
-      def self.calculate_expected_matr(observed_matr)
-        row_sums = observed_matr.row_vectors.map { |row| row.to_a.sum.to_r }
-        col_sums = observed_matr.column_vectors.map { |col| col.to_a.sum.to_r }
+      def self.calculate_expected_matrix(observed_matrix)
+        row_sums = observed_matrix.row_vectors.map { |row| row.to_a.sum.to_r }
+        col_sums = observed_matrix.column_vectors.map { |col| col.to_a.sum.to_r }
         total_sum = row_sums.sum
         
         # create a mutable array from the Matrix of observed values
         # so we have a 'template' for our Matrx of expected values
-        expected = observed_matr.to_a
+        expected = observed_matrix.to_a
         # calculate the expected values
-        observed_matr.each_with_index do |i, row, col|
+        observed_matrix.each_with_index do |i, row, col|
           expected[row][col] = (row_sums[row] * col_sums[col]) / total_sum
         end
         Matrix.rows(expected)
       end
-    
-      private
 
-      def self.chi_statistic_matr(observed_matr, expected_matr)
+      def self.chi_statistic_matrix(observed_matrix, expected_matrix)
         sum = 0.0
-        observed_matr.each_with_index do |i, row, col|
-            sum += (observed_matr[row, col] - expected_matr[row, col])**2 / expected_matr[row, col]
+        observed_matrix.each_with_index do |i, row, col|
+            sum += (observed_matrix[row, col] - expected_matrix[row, col])**2 / expected_matrix[row, col]
         end
         sum
       end
+
+      private_class_method :chi_statistic_matrix
+
     end
   end
 end
