@@ -48,7 +48,7 @@ Feel free to use the one that is more convenient to you.
 require 'statistics'
 
 poisson = Distribution::Poisson.new(l) # Using Distribution alias.
-normal = Statistics::Distribution::StandardNormal.new # Using all namespaces.
+normal = RubyStatistics::Distribution::StandardNormal.new # Using all namespaces.
 ```
 
 ## Documentation
@@ -70,7 +70,7 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the Statistics project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/estebanz01/ruby-statistics/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the RubyStatistics project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/estebanz01/ruby-statistics/blob/master/CODE_OF_CONDUCT.md).
 
 ## Contact
 
