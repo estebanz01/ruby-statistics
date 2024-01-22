@@ -10,8 +10,13 @@ module Statistics
       end
 
       def cumulative_function(value)
-        k = degrees_of_freedom/2.0
-        Math.lower_incomplete_gamma_function(k, value/2.0)/Math.gamma(k)
+        if degrees_of_freedom == 2
+          # Special case where DF = 2 https://en.wikipedia.org/wiki/Chi-squared_distribution#Cumulative_distribution_function
+          1.0 - Math.exp((-1.0 * value / 2.0))
+        else
+          k = degrees_of_freedom/2.0
+          Math.lower_incomplete_gamma_function(k, value/2.0)/Math.gamma(k)
+        end
       end
 
       def density_function(value)
