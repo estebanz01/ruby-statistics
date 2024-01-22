@@ -45,8 +45,11 @@ module Math
   end
 
   def self.lower_incomplete_gamma_function(s, x)
+    base_iterator = x.round(1)
+    base_iterator += 1 if x < 1.0 && !x.zero?
+
     # The greater the iterations, the better. That's why we are iterating 10_000 * x times
-    iterator = (10_000 * x.round(1)).round
+    iterator = (10_000 * base_iterator).round
     iterator = 100_000 if iterator.zero?
 
     self.simpson_rule(0, x.to_r, iterator) do |t|
