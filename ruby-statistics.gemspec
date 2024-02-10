@@ -2,7 +2,6 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "statistics/version"
-require "matrix"
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby-statistics"
@@ -33,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "grb", '~> 0.4.1', '>= 0.4.1'
   spec.add_development_dependency 'byebug', '>= 9.1.0'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'matrix'
 end
