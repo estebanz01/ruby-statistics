@@ -1,6 +1,6 @@
 name: Ruby
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build: # Latest ruby
@@ -9,26 +9,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby 3.2
-      uses: ruby/setup-ruby@v1.161.0
+    - name: Set up Ruby 3.3
+      uses: ruby/setup-ruby@v1.171.0
       with:
-        ruby-version: 3.2
+        ruby-version: 3.3
     - name: Build and test with Rake
       run: |
         gem install bundler
         bundle install --jobs 2 --retry 1
         bundle exec rake
 
-  build_2_7:
+  build_3_2:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby 2.7
-      uses: ruby/setup-ruby@v1.161.0
+    - name: Set up Ruby 3.2
+      uses: ruby/setup-ruby@v1.171.0
       with:
-        ruby-version: 2.7
+        ruby-version: 3.2
     - name: Build and test with Rake
       run: |
         gem install bundler
@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby 3.0
-      uses: ruby/setup-ruby@v1.161.0
+      uses: ruby/setup-ruby@v1.171.0
       with:
         ruby-version: 3.0
     - name: Build and test with Rake
@@ -58,7 +58,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby 3.1
-      uses: ruby/setup-ruby@v1.161.0
+      uses: ruby/setup-ruby@v1.171.0
       with:
         ruby-version: 3.1
     - name: Build and test with Rake

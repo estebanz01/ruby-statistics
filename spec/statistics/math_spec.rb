@@ -76,6 +76,16 @@ describe Math do
       described_class.lower_incomplete_gamma_function(lower, upper)
     end
 
+    it "uses the simpson's rule with iterations bigger than 10_000 when upper is 0.0 < x < 1.0" do
+      lower = 0
+      upper = rand(0.01..0.99)
+      iteration = 10_000 * (1 + upper.round(1))
+
+      expect(described_class).to receive(:simpson_rule).with(lower, upper.to_r, iteration)
+
+      described_class.lower_incomplete_gamma_function(lower, upper)
+    end
+
     it 'returns the expected calculation' do
       results = [0.6322, 0.594, 1.1536, 3.3992, 13.4283]
 

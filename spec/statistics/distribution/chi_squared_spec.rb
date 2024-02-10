@@ -10,6 +10,20 @@ describe Statistics::Distribution::ChiSquared do
         expect(chi_sq.cumulative_function(number).round(4)).to eq results[index]
       end
     end
+
+    context 'when the degrees of freedom is 2 for the chi-squared distribution' do
+      it 'performs the probability calculation using the special case instead' do
+        # Results gathered from R 4.0.3
+        # # > pchisq(1:10, df = 2)
+        # # [1] 0.3935 0.6321 0.7769 0.8647 0.9179 0.9502 0.9698 0.9817 0.9889 0.9933
+        results = [0.3935, 0.6321, 0.7769, 0.8647, 0.9179, 0.9502, 0.9698, 0.9817, 0.9889, 0.9933]
+        chi_sq = described_class.new(2)
+
+        (1..10).each_with_index do |number, index|
+          expect(chi_sq.cumulative_function(number).round(4)).to eq results[index]
+        end
+      end
+    end
   end
 
   describe '#density_function' do
