@@ -103,6 +103,7 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
 
       observed = Matrix[[388,51692],[119,45633],[271,40040]]
       alpha = 0.05
+      result = {}
 
       expect do
         result = described_class.test_of_independence(alpha, observed)

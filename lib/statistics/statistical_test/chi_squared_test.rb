@@ -54,7 +54,7 @@ module Statistics
         expected_matrix = calculate_expected_matrix(observed_matrix)
         df = (observed_matrix.row_size - 1) * (observed_matrix.column_size - 1)
         chi_score = chi_statistic_matrix(observed_matrix, expected_matrix)
-        probability = 1.0 - Statistics::Distribution::ChiSquared.new(df).cumulative_function(chi_score)
+        probability = Statistics::Distribution::ChiSquared.new(df).cumulative_function(chi_score)
         p_value = 1.0 - probability
     
         {
