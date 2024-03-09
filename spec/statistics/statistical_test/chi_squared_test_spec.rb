@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'matrix'
 
 describe Statistics::StatisticalTest::ChiSquaredTest do
   describe '.chi_statistic' do
@@ -82,4 +83,41 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       expect(result[:alternative]).to be false
     end
   end
+
+  describe '.calculate_expected_matrix' do
+    
+    it 'calculate expected values for a 2*3 contingency table of observed values' do
+      
+      observed = Matrix[[388,51692],[119,45633],[271,40040]]
+      result = described_class.calculate_expected_matrix(observed)
+
+      expect(result).to eq(Matrix[[(40518240/138143), (7153969200/138143)], [(35595056/138143), (6284723480/138143)], [(31361958/138143), (5537320515/138143)]])
+
+    end
+
+  end
+
+  describe '.test_of_independence' do
+
+    it 'calculate test of independence for a 2*3 contingency table' do
+
+      observed = Matrix[[388,51692],[119,45633],[271,40040]]
+      alpha = 0.05
+      result = {}
+
+      expect do
+        result = described_class.test_of_independence(alpha, observed)
+      end.not_to raise_error
+
+      expect(result[:chi_score].round(4)).to eq(114.3600)
+      expect(result[:p_value].round(4)).to eq(1.4690)
+      expect(result[:df]).to eq(2)
+      expect(result[:null]).to be true
+      expect(result[:alternative]).to be false
+
+    end
+
+  end
+
+
 end
