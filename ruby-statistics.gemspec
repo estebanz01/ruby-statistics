@@ -32,5 +32,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "grb", '~> 0.4.1', '>= 0.4.1'
   spec.add_development_dependency 'byebug', '>= 9.1.0'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'matrix'
 end
