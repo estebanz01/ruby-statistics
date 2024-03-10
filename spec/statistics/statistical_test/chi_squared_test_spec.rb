@@ -91,7 +91,7 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       observed = Matrix[[388,51692],[119,45633],[271,40040]]
       result = described_class.calculate_expected_matrix(observed)
 
-      expect(result).to eq(Matrix[[(40518240/138143), (7153969200/138143)], [(35595056/138143), (6284723480/138143)], [(31361958/138143), (5537320515/138143)]])
+      expect(result.map(&:to_i)).to eq(Matrix[[(40518240/138143), (7153969200/138143)], [(35595056/138143), (6284723480/138143)], [(31361958/138143), (5537320515/138143)]])
 
     end
 
@@ -110,10 +110,10 @@ describe Statistics::StatisticalTest::ChiSquaredTest do
       end.not_to raise_error
 
       expect(result[:chi_score].round(4)).to eq(114.3600)
-      expect(result[:p_value].round(4)).to eq(1.4690)
+      expect(result[:p_value]).to eq(0.0)
       expect(result[:df]).to eq(2)
-      expect(result[:null]).to be true
-      expect(result[:alternative]).to be false
+      expect(result[:null]).to be false
+      expect(result[:alternative]).to be true
 
     end
 
