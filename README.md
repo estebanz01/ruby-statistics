@@ -33,22 +33,22 @@ Or install it yourself as:
 
 ## Basic Usage
 
-just require the `statistics` gem in order to load it. If you don't have defined the `Distribution` namespace, the gem will assign an alias, reducing the number of namespaces needed to use a class.
+just require the `ruby-statistics` gem in order to load it. If you don't have defined the `Distribution` namespace, the gem will assign an alias, reducing the number of namespaces needed to use a class.
 
 Right now you can load:
 
-* The whole statistics gem. `require 'statistics'`
-* A namespace. `require 'statistics/distribution'`
-* A class. `require 'statistics/distribution/normal'`
+* The whole statistics gem. `require 'ruby-statistics'`
+* A namespace. `require 'ruby-statistics/distribution'`
+* A class. `require 'ruby-statistics/distribution/normal'`
 
 Feel free to use the one that is more convenient to you.
 
 ### Hello-World Example
 ```ruby
-require 'statistics'
+require 'ruby-statistics'
 
 poisson = Distribution::Poisson.new(l) # Using Distribution alias.
-normal = Statistics::Distribution::StandardNormal.new # Using all namespaces.
+normal = RubyStatistics::Distribution::StandardNormal.new # Using all namespaces.
 ```
 
 ## Documentation
@@ -70,7 +70,7 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the Statistics project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/estebanz01/ruby-statistics/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the RubyStatistics project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/estebanz01/ruby-statistics/blob/master/CODE_OF_CONDUCT.md).
 
 ## Contact
 

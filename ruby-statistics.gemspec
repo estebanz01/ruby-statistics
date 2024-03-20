@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "statistics/version"
+require "ruby-statistics/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby-statistics"
-  spec.version       = Statistics::VERSION
+  spec.version       = RubyStatistics::VERSION
   spec.authors       = ["esteban zapata"]
   spec.email         = ["estebanz01@outlook.com"]
 
