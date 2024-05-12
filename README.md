@@ -1,6 +1,10 @@
 # Ruby Statistics
+![](https://github.com/estebanz01/ruby-statistics/actions/workflows/ruby.yml/badge.svg)
+
 ## Note regarding Versions 3.x and 4.x
 Hola! :wave: right now the gem got an update that introduced a breaking change in master where the Outermost namespace was changed to be `ruby_statistics` instead of `statistics`. This change is in _master_ already but not yet released. If you're relying on branch instead of gem version, you can checkout branch `3.x`. This branch will be supported but no additional features will be added.
+
+---
 
 A basic ruby gem that implements some statistical methods, functions and concepts to be used in any ruby environment without depending on any mathematical software like `R`, `Matlab`, `Octave` or similar.
 
