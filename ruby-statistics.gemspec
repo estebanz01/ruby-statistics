@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "ruby-statistics"
   spec.version       = RubyStatistics::VERSION
   spec.authors       = ["esteban zapata"]
-  spec.email         = ["estebanz01@outlook.com"]
+  spec.email         = ["ruby@estebanz.email"]
 
   spec.summary       = %q{A ruby gem for som specific statistics. Inspired by the jStat js library.}
   spec.description   = %q{This gem is intended to accomplish the same purpose as jStat js library:
@@ -27,9 +27,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rake", '>= 12.0.0', '~> 13.0'
-  spec.add_development_dependency "rspec", '>= 3.6.0'
-  spec.add_development_dependency "grb", '~> 0.4.1', '>= 0.4.1'
-  spec.add_development_dependency 'byebug', '>= 9.1.0'
-  spec.add_development_dependency 'pry'
+  # Minimum required ruby version
+  spec.required_ruby_version = '>= 3.0'
+
+  spec.add_development_dependency "rake", '~> 13.0', '>= 12.0.0'
+  spec.add_development_dependency "rspec", '~> 3.6', '>= 3.6.0'
+  spec.add_development_dependency 'byebug', '~> 11.1', '>= 11.1.0'
+  spec.add_development_dependency 'pry', '~> 0.14', '>= 0.14.0'
 end
