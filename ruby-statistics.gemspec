@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", '~> 3.6', '>= 3.6.0'
   spec.add_development_dependency 'byebug', '~> 11.1', '>= 11.1.0'
   spec.add_development_dependency 'pry', '~> 0.14', '>= 0.14.0'
+  spec.add_development_dependency 'bigdecimal', '~> 3.1', '>= 3.1.9'
 end
