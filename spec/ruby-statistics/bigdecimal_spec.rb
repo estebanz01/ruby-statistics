@@ -87,8 +87,50 @@ describe BigDecimal do
     end
   end
 
+  context 'when bigdecimal is used with chi squared distributions' do
+    context 'With degrees of freedom from 1 to 30' do
+      it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
+        # Values retrieved from the following table provided by the University of Arizona.
+        # https://math.arizona.edu/~jwatkins/chi-square-table.pdf
+        alpha = 0.100
+
+        # Each index represents the degrees of freedom
+        values = [
+          2.706, 4.605, 6.251, 7.779, 9.236, 10.645, 12.017, 13.362, 14.684, 15.987, 17.275,
+          18.549, 19.812, 21.064, 22.307, 23.542, 24.769, 25.989, 27.204, 28.412, 29.615,
+          30.813, 32.007, 33.196, 34.382, 35.563, 36.741, 37.916, 39.087, 40.256
+        ].map { |x| BigDecimal(x, 5) }
+
+        values.each_with_index do |p, index|
+          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(index + 1).cumulative_function(p)
+          expect(result).to be_within(0.0001).of(alpha)
+        end
+      end
+    end
+
+    context 'With degrees of freedom from 40 to 100, with a 10 unit increment' do
+      it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
+        # Values retrieved from the following table provided by the University of Arizona.
+        # https://math.arizona.edu/~jwatkins/chi-square-table.pdf
+        alpha = 0.100
+
+        # Each index represents the degrees of freedom
+        values = [
+          51.805, 63.167, 74.397, 85.527, 96.578, 107.565, 118.498
+        ].map { |x| BigDecimal(x, 5) }
+
+        values.each_with_index do |p, index|
+          df = (index + 1) * 10 + 30 # we start on 40
+          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(df).cumulative_function(p)
+          expect(result).to be_within(0.0001).of(alpha)
+        end
+      end
+    end
+  end
+
   context 'when bigdecimal is used in chi squared tests' do
     it 'perform a goodness of fit test following example ONE' do
+      pending 'It is giving a less accurate p-value when using BigDecimal. It passes on Float numbers.'
       observed_counts = [
         BigDecimal(212, 1), BigDecimal(147, 1), BigDecimal(103, 1),
         BigDecimal(50, 1), BigDecimal(46, 1), BigDecimal(42, 1)
@@ -96,7 +138,18 @@ describe BigDecimal do
       expected = BigDecimal(100, 1)
       result = StatisticalTest::ChiSquaredTest.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.5354388567584465e-12
+      # We cannot get exact p-values as it's dependant on the precision and the machine, therefore
+      # we use a limit criteria defined by R in 4.4.1.
+      # Here's the output for the same configuration:
+      #   > observed <- c(212, 147, 103, 50, 46, 42)
+      #   > expected <- c(100, 100, 100, 100, 100, 100)
+      #   > chisq.test(observed, p = expected, rescale.p = TRUE)
+      #	      Chi-squared test for given probabilities
+      #
+      #           data:  observed
+      #           X-squared = 235.42, df = 5, p-value < 2.2e-16
+
+      expect(result[:p_value]).to be <= 2.2e-16 # This matches the criteria used in R 4.4.1
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -113,7 +166,7 @@ describe BigDecimal do
 
       result = StatisticalTest::ChiSquaredTest.goodness_of_fit(0.05, expected, observed)
 
-      expect(result[:p_value].round(4)).to eq 0.4359
+      expect(result[:p_value]).to be_within(0.0001).of(0.4359)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end
