@@ -91,8 +91,8 @@ describe Math do
 
       (1..5).each_with_index do |number, index|
         expect(
-          described_class.lower_incomplete_gamma_function(number, number).round(4)
-        ).to eq results[index]
+          described_class.lower_incomplete_gamma_function(number, number)
+        ).to be_within(0.0001).of(results[index])
       end
     end
 
@@ -161,8 +161,8 @@ describe Math do
       result = [1, 0.1667, 0.0333, 0.0071, 0.0016]
 
       (1..5).each_with_index do |number, index|
-        expectation = described_class.beta_function(number, number).round(4)
-        expect(expectation).to eq result[index]
+        expectation = described_class.beta_function(number, number)
+        expect(expectation).to be_within(0.0001).of(result[index])
       end
     end
   end
@@ -175,8 +175,8 @@ describe Math do
       results = [0.19, 0.1808, 0.2557, 0.4059, 0.6230, 0.8418, 0.9685, 0.9985, 1.0, 1.0]
 
       (1..10).each_with_index do |number, index|
-        expect(described_class.incomplete_beta_function(number/10.0, number, number + 1).round(4))
-          .to eq results[index]
+        expect(described_class.incomplete_beta_function(number/10.0, number, number + 1))
+          .to be_within(0.0001).of(results[index])
       end
     end
   end

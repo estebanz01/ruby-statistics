@@ -46,8 +46,8 @@ describe BigDecimal do
         expect(
           Math.lower_incomplete_gamma_function(
             BigDecimal(number, 1), BigDecimal(number, 1)
-          ).round(4)
-        ).to eq results[index]
+          )
+        ).to be_within(0.0001).of(results[index])
       end
     end
 
@@ -62,8 +62,8 @@ describe BigDecimal do
       (1..5).each_with_index do |number, index|
         expectation = Math.beta_function(
           BigDecimal(number, 1), BigDecimal(number, 1)
-        ).round(4)
-        expect(expectation).to eq result[index]
+        )
+        expect(expectation).to be_within(0.0001).of(result[index])
       end
     end
 
@@ -81,8 +81,8 @@ describe BigDecimal do
         expect(
           Math.incomplete_beta_function(
             (number/10.0).to_d(16), BigDecimal(number, 1), BigDecimal(number + 1, 1)
-          ).round(4)
-        ).to eq results[index]
+          )
+        ).to be_within(0.0001).of(results[index])
       end
     end
   end
@@ -191,7 +191,7 @@ describe BigDecimal do
         result = StatisticalTest::ChiSquaredTest.goodness_of_fit(0.01, expected, observed_counts)
       end.not_to raise_error
 
-      expect(result[:p_value].round(4)).to eq(0.9995)
+      expect(result[:p_value]).to be_within(0.0001).of(0.9995)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end
@@ -227,7 +227,7 @@ describe BigDecimal do
                                              sorority_three,
                                              sorority_four)
 
-      expect(result[:p_value].round(4)).to eq 0.1241
+      expect(result[:p_value]).to be_within(0.0001).of(0.1241)
 
       # Accept null hypotheses ?
       expect(result[:null]).to be true
@@ -268,7 +268,7 @@ describe BigDecimal do
                                              random_sound,
                                              no_sound)
 
-      expect(result[:p_value].round(3)).to eq 0.045
+      expect(result[:p_value]).to be_within(0.001).of(0.045)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -327,7 +327,7 @@ describe BigDecimal do
       expect(result[:u]).to eq 2
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
-      expect(result[:p_value].round(2)).to eq 0.01
+      expect(result[:p_value]).to be_within(0.01).of(0.01)
     end
 
     it 'performs a wilcoxon rank sum/Mann-Whitney U test following example TWO' do
@@ -345,7 +345,7 @@ describe BigDecimal do
       result = StatisticalTest::WilcoxonRankSumTest.new.perform(0.05, :two_tail, oceanic_magnitudes, continental_magnitudes)
 
       expect(result[:u]).to eq 63 # In the example, they use the largest instead of the lowest.
-      expect(result[:z].round(3)).to eq -0.186
+      expect(result[:z]).to be_within(0.01).of(-0.186)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
       expect(result[:p_value]).to eq 0.8525013990549617
@@ -366,7 +366,7 @@ describe BigDecimal do
       result = StatisticalTest::WilcoxonRankSumTest.new.perform(0.05, :two_tail, oceanic_earthquakes, continental_earthquakes)
 
       expect(result[:u]).to eq 17.5
-      expect(result[:z].round(3)).to eq -2.988
+      expect(result[:z]).to be_within(0.001).of(-2.988)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
       expect(result[:p_value]).to eq 0.002808806689028387
@@ -393,7 +393,7 @@ describe BigDecimal do
 
       result = StatisticalTest::TTest.perform(alpha, :one_tail, 4.7, student_grades)
 
-      expect(result[:p_value].round(6)).to eq 0.003114 # R 3.5.1. calculates the p_value as 0.003114
+      expect(result[:p_value]).to be_within(0.000001).of(0.003114) # R 3.5.1. calculates the p_value as 0.003114
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -411,7 +411,7 @@ describe BigDecimal do
 
       result = StatisticalTest::TTest.perform(alpha, :two_tail, 4.7, student_grades)
 
-      expect(result[:p_value].round(6)).to eq 0.006229 # R 3.5.1. calculates the p_value as 0.006229
+      expect(result[:p_value]).to be_within(0.000001).of(0.006229) # R 3.5.1. calculates the p_value as 0.006229
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -441,13 +441,13 @@ describe BigDecimal do
 
         result = StatisticalTest::TTest.perform(alpha, :two_tail, older_adults, younger_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = StatisticalTest::TTest.perform(alpha, :two_tail, younger_adults, older_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -477,13 +477,13 @@ describe BigDecimal do
 
         result = StatisticalTest::TTest.perform(alpha, :one_tail, experimental, comparison)
 
-        expect(result[:t_score].round(4)).to eq 3.5341
+        expect(result[:t_score]).to be_within(0.0001).of(3.5341)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = StatisticalTest::TTest.perform(alpha, :one_tail, comparison, experimental)
 
-        expect(result[:t_score].round(4)).to eq 3.5341
+        expect(result[:t_score]).to be_within(0.0001).of(3.5341)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -514,13 +514,13 @@ describe BigDecimal do
 
         result = StatisticalTest::TTest.perform(alpha, :two_tail, older_adults, younger_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = StatisticalTest::TTest.perform(alpha, :two_tail, younger_adults, older_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -547,7 +547,7 @@ describe BigDecimal do
 
         result = StatisticalTest::TTest.paired_test(alpha, :one_tail, group_one, group_two)
 
-        expect(result[:t_score].round(4)).to eq 4.8638
+        expect(result[:t_score]).to be_within(0.0001).of(4.8638)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end

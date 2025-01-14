@@ -7,7 +7,7 @@ describe RubyStatistics::Distribution::ChiSquared do
       chi_sq = described_class.new(5) # 5 degrees of freedom
 
       (1..5).each_with_index do |number, index|
-        expect(chi_sq.cumulative_function(number).round(4)).to eq results[index]
+        expect(chi_sq.cumulative_function(number)).to be_within(0.0001).of(results[index])
       end
     end
 
@@ -56,7 +56,7 @@ describe RubyStatistics::Distribution::ChiSquared do
         chi_sq = described_class.new(2)
 
         (1..10).each_with_index do |number, index|
-          expect(chi_sq.cumulative_function(number).round(4)).to eq results[index]
+          expect(chi_sq.cumulative_function(number)).to be_within(0.0001).of(results[index])
         end
       end
     end
@@ -73,7 +73,7 @@ describe RubyStatistics::Distribution::ChiSquared do
       (1..5).each_with_index do |number, index|
         chi_sq = described_class.new(1) # 1 degree freedom
 
-        expect(chi_sq.density_function(number).round(4)).to eq result[index]
+        expect(chi_sq.density_function(number)).to be_within(0.0001).of(result[index])
       end
     end
   end

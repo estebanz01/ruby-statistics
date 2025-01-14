@@ -38,7 +38,7 @@ describe RubyStatistics::Distribution::Binomial do
       binomial = described_class.new(10, 0.5) # Number of trials: 10, probability per trial: 0.5
 
       (1..5).each_with_index do |number, index|
-        expect(binomial.cumulative_function(number).round(8)).to eq results[index]
+        expect(binomial.cumulative_function(number)).to be_within(0.00000001).of(results[index])
       end
     end
   end

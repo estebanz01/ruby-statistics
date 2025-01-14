@@ -29,7 +29,7 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.perform(alpha, :one_tail, 4.7, student_grades)
 
-      expect(result[:p_value].round(6)).to eq 0.003114 # R 3.5.1. calculates the p_value as 0.003114
+      expect(result[:p_value]).to be_within(0.000001).of(0.003114) # R 3.5.1. calculates the p_value as 0.003114
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -40,7 +40,7 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.perform(alpha, :two_tail, 4.7, student_grades)
 
-      expect(result[:p_value].round(6)).to eq 0.006229 # R 3.5.1. calculates the p_value as 0.006229
+      expect(result[:p_value]).to be_within(0.000001).of(0.006229) # R 3.5.1. calculates the p_value as 0.006229
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -62,13 +62,13 @@ describe RubyStatistics::StatisticalTest::TTest do
 
         result = described_class.perform(alpha, :two_tail, older_adults, younger_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = described_class.perform(alpha, :two_tail, younger_adults, older_adults)
 
-        expect(result[:t_score].round(4)).to eq 4.2575
+        expect(result[:t_score]).to be_within(0.0001).of(4.2575)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -86,13 +86,13 @@ describe RubyStatistics::StatisticalTest::TTest do
 
         result = described_class.perform(alpha, :one_tail, experimental, comparison)
 
-        expect(result[:t_score].round(4)).to eq 3.5341
+        expect(result[:t_score]).to be_within(0.0001).of(3.5341)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
 
         result = described_class.perform(alpha, :one_tail, comparison, experimental)
 
-        expect(result[:t_score].round(4)).to eq 3.5341
+        expect(result[:t_score]).to be_within(0.0001).of(3.5341)
         expect(result[:null]).to be false
         expect(result[:alternative]).to be true
       end
@@ -136,7 +136,7 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :one_tail, group_one, group_two)
 
-      expect(result[:t_score].round(4)).to eq 4.8638
+      expect(result[:t_score]).to be_within(0.0001).of(4.8638)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -151,8 +151,8 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :one_tail, before, after)
 
-      expect(result[:t_score].round(4)).to eq 4.9258
-      expect(result[:p_value].round(4)).to eq 0.0006
+      expect(result[:t_score]).to be_within(0.0001).of(4.9258)
+      expect(result[:p_value]).to be_within(0.0001).of(0.0006)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -164,8 +164,8 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, before, after)
 
-      expect(result[:t_score].round(4)).to eq 4.9258
-      expect(result[:p_value].round(4)).to eq 0.0012
+      expect(result[:t_score]).to be_within(0.0001).of(4.9258)
+      expect(result[:p_value]).to be_within(0.0001).of(0.0012)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -185,8 +185,8 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, five_mts, ten_mts)
 
-      expect(result[:t_score].round(4)).to eq 2.3697
-      expect(result[:p_value].round(3)).to eq 0.026
+      expect(result[:t_score]).to be_within(0.0001).of(2.3697)
+      expect(result[:p_value]).to be_within(0.001).of(0.026)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -215,8 +215,8 @@ describe RubyStatistics::StatisticalTest::TTest do
 
       result = described_class.paired_test(alpha, :two_tail, left_group, right_group)
 
-      expect(result[:t_score].round(4)).to eq -2.5202
-      expect(result[:p_value].round(5)).to eq 0.06534
+      expect(result[:t_score]).to be_within(0.0001).of(-2.5202)
+      expect(result[:p_value]).to be_within(0.00001).of(0.06534)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end

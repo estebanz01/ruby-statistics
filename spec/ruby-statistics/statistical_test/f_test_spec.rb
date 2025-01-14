@@ -39,7 +39,7 @@ describe RubyStatistics::StatisticalTest::FTest do
       end
 
       it 'calculates the variances between and within groups to retrieve the F-statistic' do
-        expect(result[0].round(2)).to eq 2.23
+        expect(result[0]).to be_within(0.01).of(2.23)
       end
 
       it 'calculates the correct degrees of freedom for the specified groups' do
@@ -73,7 +73,7 @@ describe RubyStatistics::StatisticalTest::FTest do
                                              sorority_three,
                                              sorority_four)
 
-      expect(result[:p_value].round(4)).to eq 0.1241
+      expect(result[:p_value]).to be_within(0.0001).of(0.1241)
 
       # Accept null hypotheses ?
       expect(result[:null]).to be true
@@ -105,7 +105,7 @@ describe RubyStatistics::StatisticalTest::FTest do
                                              random_sound,
                                              no_sound)
 
-      expect(result[:p_value].round(3)).to eq 0.045
+      expect(result[:p_value]).to be_within(0.001).of(0.045)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end

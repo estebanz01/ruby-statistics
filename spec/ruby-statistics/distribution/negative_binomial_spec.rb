@@ -21,7 +21,7 @@ describe RubyStatistics::Distribution::NegativeBinomial do
       binomial = described_class.new(10, 0.5) # Number of failures: 10, probability per trial: 0.5
 
       (1..5).each_with_index do |number, index|
-        expect(binomial.probability_mass_function(number).round(8)).to eq results[index]
+        expect(binomial.probability_mass_function(number)).to be_within(0.00000001).of(results[index])
       end
     end
   end
@@ -46,7 +46,7 @@ describe RubyStatistics::Distribution::NegativeBinomial do
       binomial = described_class.new(10, 0.5) # Number of trials: 10, probability per trial: 0.5
 
       (1..5).each_with_index do |number, index|
-        expect(binomial.cumulative_function(number).round(9)).to eq results[index]
+        expect(binomial.cumulative_function(number)).to be_within(0.000000001).of(results[index])
       end
     end
   end

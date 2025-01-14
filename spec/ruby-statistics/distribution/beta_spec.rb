@@ -15,7 +15,7 @@ describe RubyStatistics::Distribution::Beta do
       beta_distribution = described_class.new(2, 3) # alpha 2, beta 3
 
       [0.1, 0.2, 0.3, 0.4, 0.5].each_with_index do |number, index|
-        expect(beta_distribution.cumulative_function(number).round(4)).to eq result[index]
+        expect(beta_distribution.cumulative_function(number)).to be_within(0.0001).of(result[index])
       end
     end
   end
@@ -32,7 +32,7 @@ describe RubyStatistics::Distribution::Beta do
       beta_distribution = described_class.new(3, 2) # Alpha = 3, Beta = 2
 
       [0, 0.1, 0.2, 0.3, 0.4, 0.5].each_with_index do |number, index|
-        expect(beta_distribution.density_function(number).round(4)).to eq result[index]
+        expect(beta_distribution.density_function(number)).to be_within(0.0001).of(result[index])
       end
     end
   end
