@@ -117,6 +117,40 @@ describe Math do
     end
   end
 
+  describe '.normalised_lower_incomplete_gamma_function' do
+    it 'returns zero if the complex parameter is negative' do
+      expect(described_class.normalised_lower_incomplete_gamma_function(-1, 1)).to be_zero
+    end
+
+    it 'returns zero if the X parameter is negative' do
+      expect(described_class.normalised_lower_incomplete_gamma_function(1, -1)).to be_zero
+    end
+
+    it 'returns zero if the X parameter is zero' do
+      expect(described_class.normalised_lower_incomplete_gamma_function(1, 0)).to be_zero
+    end
+
+    # The following context is based on the numbers reported in https://github.com/estebanz01/ruby-statistics/issues/78
+    # which give us a minimum test case scenario where the integral being solved with simpson's rule
+    # uses zero iterations, raising errors. It should calculate properly using the normalised lower incomplete.
+    it 'performs a calculation with a special case' do
+      expect {
+        described_class.normalised_lower_incomplete_gamma_function(4.5, 52/53r)
+      }.not_to raise_error
+    end
+
+    it 'returns the expected calculations' do
+      # Results calculated on R 4.4.1 using the `pgamma(number, number)` function.
+      results = [0.6321206, 0.5939942, 0.5768099, 0.5665299, 0.5595067]
+
+      (1..5).each_with_index do |number, index|
+        expect(
+          described_class.normalised_lower_incomplete_gamma_function(number, number)
+        ).to be_within(0.00001).of(results[index])
+      end
+    end
+  end
+
   describe '.beta_function' do
     it 'returns 1 for the special case x = y = 1' do
       expect(described_class.beta_function(1, 1)).to eq 1

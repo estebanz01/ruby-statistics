@@ -57,6 +57,53 @@ module Math
     end
   end
 
+  # Algorithm implementation translated from the ASA147 C++ version https://people.sc.fsu.edu/~jburkardt/cpp_src/asa147/asa147.html
+  # translated from FORTRAN by John Burkardt. Original algorithm written by Chi Leung Lau.
+  # It contains a modification on the error and underflow parameters to use maximum available float number
+  # and it performs the series using `Rational` objects to avoid memory exhaustion and reducing precision errors.
+  #
+  # This algorithm is licensed with MIT license.
+  #
+  # Reference:
+  #
+  #    Chi Leung Lau,
+  #    Algorithm AS 147:
+  #    A Simple Series for the Incomplete Gamma Integral,
+  #    Applied Statistics,
+  #    Volume 29, Number 1, 1980, pages 113-114.
+  def self.normalised_lower_incomplete_gamma_function(s, x)
+    return 0.0 if s.negative? || x.zero? || x.negative?
+
+    # e = 1.0e-308
+    # uflo = 1.0e-47
+    e = Float::MIN
+    uflo = Float::MIN
+
+    lgamma, sign = Math.lgamma(s + 1.0)
+    arg = s * Math.log(x) - (sign * lgamma) - x
+
+    return 0.0 if arg < Math.log(uflo)
+
+    f = Math.exp(arg).to_r
+
+    return 0.0 if f.zero?
+
+    c = 1r
+    value = 1r
+    a = s.to_r
+    rational_x = x.to_r
+
+    loop do
+      a += 1r
+      c = c * (rational_x / a)
+      value += c
+
+      break if c <= (e * value)
+    end
+
+    (value * f).to_f
+  end
+
   def self.beta_function(x, y)
     return 1 if x == 1 && y == 1
 
