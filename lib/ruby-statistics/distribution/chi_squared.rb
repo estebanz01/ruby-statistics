@@ -15,7 +15,8 @@ module RubyStatistics
           1.0 - Math.exp((-1.0 * value / 2.0))
         else
           k = degrees_of_freedom/2.0
-          Math.lower_incomplete_gamma_function(k, value/2.0)/Math.gamma(k)
+          # Math.lower_incomplete_gamma_function(k, value/2.0)/Math.gamma(k)
+          Math.normalised_lower_incomplete_gamma_function(k, value / 2.0)
         end
       end
 
@@ -27,7 +28,7 @@ module RubyStatistics
         left_down = (2 ** common) * Math.gamma(common)
         right = (value ** (common - 1)) * Math.exp(-(value/2.0))
 
-        (1.0/left_down) * right
+        right / left_down
       end
 
       def mode
