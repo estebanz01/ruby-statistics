@@ -90,19 +90,17 @@ describe BigDecimal do
   context 'when bigdecimal is used with chi squared distributions' do
     context 'With degrees of freedom from 1 to 30' do
       it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
-        # Values retrieved from the following table provided by the University of Arizona.
-        # https://math.arizona.edu/~jwatkins/chi-square-table.pdf
         alpha = 0.100
 
-        # Each index represents the degrees of freedom
-        values = [
-          2.706, 4.605, 6.251, 7.779, 9.236, 10.645, 12.017, 13.362, 14.684, 15.987, 17.275,
-          18.549, 19.812, 21.064, 22.307, 23.542, 24.769, 25.989, 27.204, 28.412, 29.615,
-          30.813, 32.007, 33.196, 34.382, 35.563, 36.741, 37.916, 39.087, 40.256
-        ].map { |x| BigDecimal(x, 5) }
+        values = RubyStatistics::Distribution::Tables::ChiSquared.get_alpha_column(alpha).map { |x|
+            {
+              df: x[:df],
+              bd: BigDecimal(x[:critical_value], 5)
+            }
+        }[0, 30]
 
-        values.each_with_index do |p, index|
-          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(index + 1).cumulative_function(p)
+        values.each do |p|
+          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(p[:df]).cumulative_function(p[:bd])
           expect(result).to be_within(0.0001).of(alpha)
         end
       end
@@ -110,18 +108,17 @@ describe BigDecimal do
 
     context 'With degrees of freedom from 40 to 100, with a 10 unit increment' do
       it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
-        # Values retrieved from the following table provided by the University of Arizona.
-        # https://math.arizona.edu/~jwatkins/chi-square-table.pdf
         alpha = 0.100
 
-        # Each index represents the degrees of freedom
-        values = [
-          51.805, 63.167, 74.397, 85.527, 96.578, 107.565, 118.498
-        ].map { |x| BigDecimal(x, 5) }
+        values = RubyStatistics::Distribution::Tables::ChiSquared.get_alpha_column(alpha).map { |x|
+          {
+            df: x[:df],
+            bd: BigDecimal(x[:critical_value], 5)
+          }
+        }[30, 7]
 
-        values.each_with_index do |p, index|
-          df = (index + 1) * 10 + 30 # we start on 40
-          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(df).cumulative_function(p)
+        values.each do |p|
+          result = 1.0 - RubyStatistics::Distribution::ChiSquared.new(p[:df]).cumulative_function(p[:bd])
           expect(result).to be_within(0.0001).of(alpha)
         end
       end
