@@ -8,7 +8,7 @@ describe RubyStatistics::StatisticalTest::ChiSquaredTest do
       observed_counts = [212, 147, 103, 50, 46, 42]
       expected = 100
       result = described_class.chi_statistic(expected, observed_counts)
-      expect(result[0].round(3)).to eq 235.42
+      expect(result[0]).to be_within(0.001).of(235.42)
     end
 
     it 'returns an array with the expected degrees of freedom following example ONE' do
@@ -28,7 +28,7 @@ describe RubyStatistics::StatisticalTest::ChiSquaredTest do
 
       result = described_class.chi_statistic(expected, observed)
 
-      expect(result[0].round(3)).to eq 3.784
+      expect(result[0]).to be_within(0.001).of(3.784)
     end
 
     it 'returns an array with the expected degrees of freedom following example TWO' do
@@ -48,7 +48,19 @@ describe RubyStatistics::StatisticalTest::ChiSquaredTest do
       expected = 100 # this is equal to [100, 100, 100, 100, 100, 100]
       result = described_class.goodness_of_fit(0.05, expected, observed_counts)
 
-      expect(result[:p_value]).to eq -6.5358829459682966e-12
+
+      # We cannot get exact p-values as it's dependant on the precision and the machine, therefore
+      # we use a limit criteria defined by R in 4.4.1.
+      # Here's the output for the same configuration:
+      #   > observed <- c(212, 147, 103, 50, 46, 42)
+      #   > expected <- c(100, 100, 100, 100, 100, 100)
+      #   > chisq.test(observed, p = expected, rescale.p = TRUE)
+      #	      Chi-squared test for given probabilities
+      #
+      #           data:  observed
+      #           X-squared = 235.42, df = 5, p-value < 2.2e-16
+
+      expect(result[:p_value]).to be <= 2.2e-16 # This matches the criteria used in R 4.4.1
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
     end
@@ -59,7 +71,7 @@ describe RubyStatistics::StatisticalTest::ChiSquaredTest do
 
       result = described_class.goodness_of_fit(0.05, expected, observed)
 
-      expect(result[:p_value].round(4)).to eq 0.4359
+      expect(result[:p_value]).to be_within(0.0001).of(0.4359)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end
@@ -77,7 +89,7 @@ describe RubyStatistics::StatisticalTest::ChiSquaredTest do
         result = described_class.goodness_of_fit(0.01, expected, observed_counts)
       end.not_to raise_error
 
-      expect(result[:p_value].round(4)).to eq(0.9995)
+      expect(result[:p_value]).to be_within(0.0001).of(0.9995)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
     end

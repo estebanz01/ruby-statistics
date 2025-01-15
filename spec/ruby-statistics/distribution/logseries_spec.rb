@@ -17,7 +17,7 @@ describe RubyStatistics::Distribution::LogSeries do
       results = [0.721348, 0.180337, 0.060112, 0.022542, 0.009017]
 
       1.upto(5) do |number|
-        expect(described_class.density_function(number, 0.5).round(6)).to eq results[number - 1]
+        expect(described_class.density_function(number, 0.5)).to be_within(0.000001).of(results[number - 1])
       end
     end
   end
@@ -38,7 +38,7 @@ describe RubyStatistics::Distribution::LogSeries do
       results = [0.721348, 0.901684, 0.961797, 0.984339, 0.993356]
 
       1.upto(5) do |number|
-        expect(described_class.cumulative_function(number, 0.5).round(6)).to eq results[number - 1]
+        expect(described_class.cumulative_function(number, 0.5)).to be_within(0.000001).of(results[number - 1])
       end
     end
   end

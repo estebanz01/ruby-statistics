@@ -8,7 +8,7 @@ describe RubyStatistics::Distribution::Weibull do
       (1..5).each_with_index do |number, index|
         weibull = described_class.new(3, 4) # shape: 3, scale: 4
 
-        expect(weibull.density_function(number).round(8)).to eq results[index]
+        expect(weibull.density_function(number)).to be_within(0.00000001).of(results[index])
       end
     end
 
@@ -28,7 +28,7 @@ describe RubyStatistics::Distribution::Weibull do
       (1..5).each_with_index do |number, index|
         weibull = described_class.new(2, 3) # shape: 2, scale: 3
 
-        expect(weibull.cumulative_function(number).round(7)).to eq results[index]
+        expect(weibull.cumulative_function(number)).to be_within(0.0000001).of(results[index])
       end
     end
 

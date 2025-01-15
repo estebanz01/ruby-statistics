@@ -7,7 +7,7 @@ describe RubyStatistics::Distribution::Normal do
       normal = described_class.new(3, 5) # mean 3, std 5
 
       (1..5).each_with_index do |number, index|
-        expect(normal.cumulative_function(number).round(7)).to eq results[index]
+        expect(normal.cumulative_function(number)).to be_within(0.0000001).of(results[index])
       end
     end
   end
@@ -20,7 +20,7 @@ describe RubyStatistics::Distribution::Normal do
       (1..5).each_with_index do |number, index|
         normal_distribution = described_class.new(3, 5) # mean = 3, std = 5
 
-        expect(normal_distribution.density_function(number).round(4)).to eq results[index]
+        expect(normal_distribution.density_function(number)).to be_within(0.0001).of(results[index])
       end
     end
   end
@@ -80,7 +80,7 @@ describe RubyStatistics::Distribution::StandardNormal do
       standard = described_class.new
 
       (1..5).each_with_index do |number, index|
-        expect(standard.cumulative_function(number).round(7)).to eq results[index]
+        expect(standard.cumulative_function(number)).to be_within(0.0000001).of(results[index])
       end
     end
   end
@@ -92,7 +92,7 @@ describe RubyStatistics::Distribution::StandardNormal do
       (1..5).each_with_index do |number, index|
         standard_distribution = described_class.new
 
-        expect(standard_distribution.density_function(number).round(5)).to eq results[index]
+        expect(standard_distribution.density_function(number)).to be_within(0.00001).of(results[index])
       end
     end
   end

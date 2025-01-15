@@ -89,7 +89,7 @@ describe RubyStatistics::SpearmanRankCoefficient do
         frequency_rank = described_class.rank(data: frequency)
 
         rho = described_class.coefficient(volume_rank, frequency_rank)
-        expect(rho.round(7)).to eq -0.7630357
+        expect(rho).to be_within(0.0000001).of(-0.7630357)
       end
 
       it 'calcultes the spearman rank coefficient for example two' do
@@ -105,7 +105,7 @@ describe RubyStatistics::SpearmanRankCoefficient do
 
         rho = described_class.coefficient(distance_rank, price_rank)
 
-        expect(rho.round(7)).to eq -0.7570127
+        expect(rho).to be_within(0.0000001).of(-0.7570127)
       end
 
       it 'calculates the spearman rank coefficient for example three' do
@@ -119,7 +119,7 @@ describe RubyStatistics::SpearmanRankCoefficient do
 
         rho = described_class.coefficient(life_rank, cigarretes_rank)
 
-        expect(rho.round(7)).to eq -0.6744197
+        expect(rho).to be_within(0.0000001).of(-0.6744197)
       end
     end
 
@@ -134,7 +134,7 @@ describe RubyStatistics::SpearmanRankCoefficient do
 
         rho = described_class.coefficient(english_rank, math_rank)
 
-        expect(rho.round(2)).to eq 0.67
+        expect(rho).to be_within(0.01).of(0.67)
       end
 
       it 'calculates the spearman rank coefficient for example two' do

@@ -7,7 +7,7 @@ describe RubyStatistics::Distribution::F do
       f_distribution = described_class.new(3, 4) # d1: 3, d2: 4
 
       (1..5).each_with_index do |number, index|
-        expect(f_distribution.cumulative_function(number).round(7)).to eq results[index]
+        expect(f_distribution.cumulative_function(number)).to be_within(0.0000001).of(results[index])
       end
     end
   end
@@ -19,7 +19,7 @@ describe RubyStatistics::Distribution::F do
       results = [0.19245009, 0.08838835, 0.05163978, 0.03402069, 0.02414726]
 
       (1..5).each_with_index do |number, index|
-        expect(f_distribution.density_function(number).round(8)).to eq results[index]
+        expect(f_distribution.density_function(number)).to be_within(0.00000001).of(results[index])
       end
     end
 

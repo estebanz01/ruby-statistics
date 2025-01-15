@@ -7,7 +7,7 @@ describe RubyStatistics::Distribution::TStudent do
       t_student = described_class.new(2) # degrees of freedom: 2
 
       (1..5).each_with_index do |number, index|
-        expect(t_student.cumulative_function(number).round(7)).to eq results[index]
+        expect(t_student.cumulative_function(number)).to be_within(0.0000001).of(results[index])
       end
     end
   end
@@ -23,7 +23,7 @@ describe RubyStatistics::Distribution::TStudent do
       (1..5).each_with_index do |number, index|
         t_student = described_class.new(5) # degrees of freedom: 5
 
-        expect(t_student.density_function(number).round(8)).to eq results[index]
+        expect(t_student.density_function(number)).to be_within(0.00000001).of(results[index])
       end
     end
   end

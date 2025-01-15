@@ -61,7 +61,6 @@ describe RubyStatistics::StatisticalTest::KolmogorovSmirnovTest do
       # alpha, by default, is 0.05
       result = described_class.two_samples(group_one: men, group_two: women)
 
-      puts result
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
       expect(result[:d_max]).to eq 0.12

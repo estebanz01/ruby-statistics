@@ -7,7 +7,7 @@ describe RubyStatistics::Distribution::Poisson do
       poisson = described_class.new(2) # lambda: 2
 
       (1..5).each_with_index do |number, index|
-        expect(poisson.probability_mass_function(number).round(3)).to eq results[index]
+        expect(poisson.probability_mass_function(number)).to be_within(0.001).of(results[index])
       end
     end
   end
@@ -18,7 +18,7 @@ describe RubyStatistics::Distribution::Poisson do
       poisson = described_class.new(2) # lambda: 2
 
       (1..5).each_with_index do |number, index|
-        expect(poisson.cumulative_function(number).round(3)).to eq results[index]
+        expect(poisson.cumulative_function(number)).to be_within(0.001).of(results[index])
       end
     end
   end

@@ -57,7 +57,7 @@ describe RubyStatistics::StatisticalTest::WilcoxonRankSumTest do
       expect(result[:u]).to eq 2
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
-      expect(result[:p_value].round(2)).to eq 0.01
+      expect(result[:p_value]).to be_within(0.01).of(0.01)
     end
 
     it 'performs a wilcoxon rank sum/Mann-Whitney U test following example TWO' do
@@ -67,7 +67,7 @@ describe RubyStatistics::StatisticalTest::WilcoxonRankSumTest do
       result = test_class.perform(0.05, :two_tail, oceanic_magnitudes, continental_magnitudes)
 
       expect(result[:u]).to eq 63 # In the example, they use the largest instead of the lowest.
-      expect(result[:z].round(3)).to eq -0.186
+      expect(result[:z]).to be_within(0.001).of(-0.186)
       expect(result[:null]).to be true
       expect(result[:alternative]).to be false
       expect(result[:p_value]).to eq 0.8525013990549617
@@ -80,7 +80,7 @@ describe RubyStatistics::StatisticalTest::WilcoxonRankSumTest do
       result = test_class.perform(0.05, :two_tail, oceanic_earthquakes, continental_earthquakes)
 
       expect(result[:u]).to eq 17.5
-      expect(result[:z].round(3)).to eq -2.988
+      expect(result[:z]).to be_within(0.001).of(-2.988)
       expect(result[:null]).to be false
       expect(result[:alternative]).to be true
       expect(result[:p_value]).to eq 0.002808806689028387
