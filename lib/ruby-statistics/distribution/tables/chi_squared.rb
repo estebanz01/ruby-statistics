@@ -63,7 +63,7 @@ module RubyStatistics
         # return an array of the alpha values in correct order
         # i.e. 0.995 -> 0, 0.990 -> 1 etc
         def self.alpha_values
-          ALPHA_HEADER.map { |k, v| k }
+          ALPHA_HEADER.keys
         end
 
         # Checks if a valid alpha value is passed to look up values
@@ -72,10 +72,9 @@ module RubyStatistics
         end
 
         # Return a whole column of the distribution table for a certain alpha value
-        def self.get_alpha_column(alpha)
-          if !self.valid_alpha?(alpha)
-            raise "Undefined alpha value"
-          end
+        def self.alpha_column(alpha)
+          raise "Undefined alpha value." unless self.valid_alpha?(alpha)
+
           # return an array of hashes for an alpha value
           # including the degree of freedom for each critical value
           # i.e. [{df: 1, critival_value: x},...]

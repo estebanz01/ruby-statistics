@@ -92,7 +92,7 @@ describe BigDecimal do
       it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
         alpha = 0.100
 
-        values = RubyStatistics::Distribution::Tables::ChiSquared.get_alpha_column(alpha).map { |x|
+        values = RubyStatistics::Distribution::Tables::ChiSquared.alpha_column(alpha).map { |x|
             {
               df: x[:df],
               bd: BigDecimal(x[:critical_value], 5)
@@ -110,7 +110,7 @@ describe BigDecimal do
       it 'returns the expected probabilities for the chi-squared distribution compared to a table' do
         alpha = 0.100
 
-        values = RubyStatistics::Distribution::Tables::ChiSquared.get_alpha_column(alpha).map { |x|
+        values = RubyStatistics::Distribution::Tables::ChiSquared.alpha_column(alpha).map { |x|
           {
             df: x[:df],
             bd: BigDecimal(x[:critical_value], 5)
