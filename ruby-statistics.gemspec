@@ -28,11 +28,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Minimum required ruby version
-  spec.required_ruby_version = '>= 3.0'
+  spec.required_ruby_version = '>= 3.2'
 
   spec.add_development_dependency "rake", '~> 13.0', '>= 12.0.0'
   spec.add_development_dependency "rspec", '~> 3.13', '>= 3.10.0'
   spec.add_development_dependency 'byebug', '~> 11.1', '>= 11.1.0'
   spec.add_development_dependency 'pry', '~> 0.14', '>= 0.14.0'
-  spec.add_development_dependency 'bigdecimal', '~> 3.1', '>= 3.1.9'
+  spec.add_development_dependency 'bigdecimal', '~> 3.2', '>= 3.2.0'
 end

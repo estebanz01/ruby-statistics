@@ -9,6 +9,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Set up Ruby 3.4
+      uses: ruby/setup-ruby@v1.245.0
+      with:
+        ruby-version: 3.4
+    - name: Build and test with Rake
+      run: |
+        gem install bundler
+        bundle install --jobs 2 --retry 1
+        bundle exec rake
+
+  build_3_3:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
     - name: Set up Ruby 3.3
       uses: ruby/setup-ruby@v1.245.0
       with:
@@ -29,38 +45,6 @@ jobs:
       uses: ruby/setup-ruby@v1.245.0
       with:
         ruby-version: 3.2
-    - name: Build and test with Rake
-      run: |
-        gem install bundler
-        bundle install --jobs 2 --retry 1
-        bundle exec rake
-
-  build_3_0:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby 3.0
-      uses: ruby/setup-ruby@v1.245.0
-      with:
-        ruby-version: 3.0
-    - name: Build and test with Rake
-      run: |
-        gem install bundler
-        bundle install --jobs 2 --retry 1
-        bundle exec rake
-
-  build_3_1:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby 3.1
-      uses: ruby/setup-ruby@v1.245.0
-      with:
-        ruby-version: 3.1
     - name: Build and test with Rake
       run: |
         gem install bundler
