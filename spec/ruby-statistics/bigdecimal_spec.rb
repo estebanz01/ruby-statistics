@@ -21,7 +21,7 @@ describe BigDecimal do
     end
 
     it 'approximates a solution in the [a,b] interval for the integral of the specified function' do
-      lower = BigDecimal(rand(10), 1)
+      lower = BigDecimal(rand(1..10), 1)
       upper = BigDecimal(rand(11..20), 1)
 
       function_a = Math.simpson_rule(lower, upper, 10_000) do |x|
@@ -32,11 +32,11 @@ describe BigDecimal do
         Math.sin(x)
       end
 
-      res_a = ((upper ** 3)/3.0) - ((lower ** 3)/3.0) # Integral of x^2
+      res_a = ((upper ** BigDecimal(3,0))/BigDecimal(3,0)) - ((lower ** BigDecimal(3,0))/BigDecimal(3,0)) # Integral of x^2
       res_b = -Math.cos(upper) + Math.cos(lower) # Integral of sin(x)
 
-      expect(function_a.floor).to eq res_a.floor
-      expect(function_b.floor).to eq res_b.floor
+      expect(function_a.to_f.floor).to be_within(0.0001).of(res_a.to_f.floor)
+      expect(function_b.to_f.floor).to be_within(0.0001).of(res_b.to_f.floor)
     end
 
     it 'returns the expected calculationi for the lower incomplete gamma function' do
