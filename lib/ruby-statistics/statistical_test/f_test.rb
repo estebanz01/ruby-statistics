@@ -29,7 +29,6 @@ module RubyStatistics
 
           sample_sizes = args.map(&:size)
           sample_means = args.map(&:mean)
-          sample_stds = args.map(&:standard_deviation)
 
           # Variance between groups
           iterator = sample_sizes.each_with_index
