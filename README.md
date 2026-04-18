@@ -15,6 +15,7 @@ Unit test runs under the following ruby versions:
 * Ruby 3.2.
 * Ruby 3.3.
 * Ruby 3.4.
+* Ruby 4.0.
 
 We got the inspiration from the folks at [JStat](https://github.com/jstat/jstat) and some interesting lectures about [Keystroke dynamics](http://www.biometric-solutions.com/keystroke-dynamics.html).
 
